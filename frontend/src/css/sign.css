@@ -1,0 +1,24 @@
+
+.signin {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: block;
+    width:30%;
+    text-align: center;
+    /* background-image: linear-gradient(to bottom right, #bdc3c7, #2c3e50); */
+}
+.signup {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: block;
+    width:40%;
+    text-align: center;
+    /* background-image: linear-gradient(to bottom right, #bdc3c7, #2c3e50); */
+}
+
+.my-form {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 80%;   
+}
