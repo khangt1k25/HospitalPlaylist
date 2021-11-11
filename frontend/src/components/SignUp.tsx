@@ -1,3 +1,4 @@
+
 import React, { SyntheticEvent, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { Navigate } from 'react-router-dom';
@@ -12,7 +13,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [comfirmedPassword, setcomfirmedPassword] = useState('');
     const [redirect, setredirect] = useState(false);
-    const register = (e: SyntheticEvent) => {
+    const register = async (e: SyntheticEvent) => {
         e.preventDefault();
         console.log(
             name,
@@ -22,6 +23,22 @@ const SignUp = () => {
             password,
             comfirmedPassword,
         )
+        
+        await fetch('http://localhost:3007/profile', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(
+                {
+                    name, 
+                    email,
+                    phone,
+                    address,
+                    password
+                }
+            )
+        }
+        )
+
         setredirect(true);
     }
     if(redirect){
