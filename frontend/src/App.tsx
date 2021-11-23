@@ -10,21 +10,26 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import About from './components/About';
 import UserProfile from './components/UserProfile';
-
+import AppRouter from './components/Router';
 function App() {
   return (
-      <Router>
-        <Header/>
-        <Footer/>
-        <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/about' element={<About/>}></Route>
-        <Route path='/signin' element={<SignIn/>}></Route>
-        <Route path='/signup' element={<SignUp/>}></Route>
-        <Route path='/profile' element={<UserProfile/>} />
-        </Routes>
-        
-      </Router> 
+    <div>
+      <Header/>
+      <Footer />
+      <AppRouter/>
+    </div>
+    
+      // <Router>
+      //   <Header/>
+      //   <Footer />
+      //   <Routes>
+      //   <Route path='/' element={<Home/>}></Route>
+      //   <Route path='/about' element={<About/>}></Route>
+      //   <Route path='/signin' element={<SignIn/>}></Route>
+      //   <Route path='/signup' element={<SignUp/>}></Route>
+      //   <Route path='/profile' element={<UserProfile/>} />
+      //   </Routes>
+      // </Router> 
   );
 }
 
