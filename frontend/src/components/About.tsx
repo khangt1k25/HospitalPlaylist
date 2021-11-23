@@ -1,16 +1,15 @@
 import React, {Component} from 'react'
 import bg from '../asset/background.jpg'
 
-class About extends Component {
+const About = () => {
 
-    render() {
-        return (
-            <div style={{'textAlign':'center'}}>
-                This is about page
-            </div>
-            
-        )
-    }
+    return (
+        <div style={{'textAlign':'center'}}>
+            This is about page
+        </div>
+        
+    )
+
     
 }
 
