@@ -1,7 +1,7 @@
 import React from 'react'
 import bg from '../asset/background.jpg'
 
-function Home (){
+const Home = () => {
 
     return(
         <div>
