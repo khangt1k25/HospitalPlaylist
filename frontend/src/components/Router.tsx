@@ -6,6 +6,7 @@ import SignUp from './SignUp';
 import About from './About';
 import UserProfile from './UserProfile';
 import Calendar from './Calendar';
+import Craiglist from './Craiglist';
 const AppRouter = () => {
     return (
         <Router>
@@ -16,6 +17,7 @@ const AppRouter = () => {
                 <Route path='/signin' element={<SignIn/>}> </Route>
                 <Route path='/userprofile' element={<UserProfile/>}> </Route>
                 <Route path='/calendar' element={<Calendar/>}> </Route>
+                <Route path='/craiglist' element={<Craiglist/>}> </Route>
             </Routes>
         </Router>
     )
