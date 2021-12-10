@@ -18,3 +18,20 @@ yarn start
 ## To do
 1. Authentication flows (BE, FE)
 2. ...
+
+
+# Authentication
+react-router-dom
+@types/react-router-dom
+
+/login: 
+/admin: layout
+
+/admin/*
+feature: /admin/dashboard
+feature: /admin/students
+
+auth / authentication
+    - login
+    - sign up/ register
+    - forget password

@@ -1,7 +1,7 @@
 import React, { SyntheticEvent, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
-import '../css/sign.css'
+import '../styles/sign.css'
 
 
 const SignUp = () => {

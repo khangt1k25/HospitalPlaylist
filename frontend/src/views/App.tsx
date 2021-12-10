@@ -1,16 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from './components/Home';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import About from './components/About';
-import UserProfile from './components/UserProfile';
-import AppRouter from './components/Router';
+import '../styles/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './Header';
+import Footer from './Footer';
+import Home from './Home';
+import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import SignIn from './SignIn';
+import SignUp from './SignUp';
+import About from './About';
+import UserProfile from './UserProfile';
+import AppRouter from '../routes/Router';
 function App() {
   return (
     <div>
