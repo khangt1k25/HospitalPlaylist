@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const doctorSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
     {
         username: {
             type: String,
@@ -8,16 +8,14 @@ const doctorSchema = new mongoose.Schema(
         },
         email: {
             type: String,
+            unique: true,
             required: true,
         },
         password: {
             type: String,
             required: true,
         },
-        department: {
-            type: String,
-            required: True
-        },
+        
         appointmentPending: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Appointment'
@@ -27,7 +25,7 @@ const doctorSchema = new mongoose.Schema(
             ref: 'Appointment'
         }
     },
-    { collection: 'doctor'}
+    { collection: 'users'}
 )
 
-module.exports = mongoose.model('Doctor', doctorSchema)
+module.exports = mongoose.model('User', userSchema)

@@ -31,9 +31,6 @@ const appointmentSchema = new mongoose.Schema(
             type: String,
             required: False,
         },
-        avatar: {
-            type
-        },
         prescription: {
             type: String,
             required: False,
