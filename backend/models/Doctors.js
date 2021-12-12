@@ -14,22 +14,36 @@ const doctorSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        age: {
+            type: String,
+            required: true
+        },
         department: {
             type: String,
+            required: true
+        },
+        description:{
+            type: String, 
             required: true
         },
         avatar: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Documents',
-        },        
-        appointmentPending: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Appointment'
-        },
-        appointmentDone: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Appointment'
         }
+        ,        
+        appointmentPending: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Appointment'
+            }
+        ]
+        ,
+        appointmentDone: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Appointment'
+            }
+        ]
     },
     { collection: 'doctor'}
 )

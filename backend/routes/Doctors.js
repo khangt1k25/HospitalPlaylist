@@ -16,4 +16,14 @@ doctorsRoutes.post(
     asyncWrapper(doctorsController.login)
 )
 
+doctorsRoutes.post(
+    '/detail',
+    asyncWrapper(doctorsController.getDetailInformation)
+)
+
+doctorsRoutes.get(
+    '/getList',
+    asyncWrapper(doctorsController.getListDoctor)
+)
+
 module.exports = doctorsRoutes

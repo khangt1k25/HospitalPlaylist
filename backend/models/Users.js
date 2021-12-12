@@ -16,14 +16,18 @@ const userSchema = new mongoose.Schema(
             required: true,
         },
         
-        appointmentPending: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Appointment'
-        },
-        appointmentDone: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Appointment'
-        }
+        appointmentPending: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Appointment'
+            }
+        ],
+        appointmentDone: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Appointment'
+            }
+        ]
     },
     { collection: 'users'}
 )
