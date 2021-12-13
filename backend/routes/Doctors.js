@@ -26,4 +26,8 @@ doctorsRoutes.get(
     asyncWrapper(doctorsController.getListDoctor)
 )
 
+doctorsRoutes.post(
+    '/accept-appointment',
+    asyncWrapper(doctorsController.acceptAppointment)
+)
 module.exports = doctorsRoutes
