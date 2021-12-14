@@ -1,5 +1,6 @@
 const DoctorModel = require('../models/Doctors')
 const DocumentModel = require('../models/Documents')
+const AppointmentModel = require('../models/Appointments')
 const httpStatus = require('../utils/httpStatus')
 const bcrypt = require('bcryptjs')
 const doctorsController = {}
@@ -105,6 +106,23 @@ doctorsController.getListDoctor = async (req, res, next) => {
         }
         return res.status(httpStatus.OK).json(doctorMap)
     })
+}
+
+doctorsController.acceptAppointment = async (req, res) => {
+    const {appointmentid} = req.body
+    try{
+      appointment = AppointmentModel.findById(appointmentid)
+      if (appointment == null){
+        return res.status(httpStatus.NOT_FOUND.json({message: "No appointment"}))
+      }
+      appointment.status = 'accepted'
+      await appointment.save()
+      return res.status(httpStatus.OK.json({data: appointment}))
+    }
+    catch(e){
+      console.log(e.message)
+      return res.status(httpStatus.INTERNAL_SERVER_ERROR.json({message: e.message}))
+    }
 }
 
 module.exports = doctorsController

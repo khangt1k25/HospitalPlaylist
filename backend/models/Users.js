@@ -15,8 +15,18 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+
+        age: {
+            type: String,
+            required: True
+        },
+
+        gender: {
+            type: String,
+            required: True,
+        },
         
-        appointmentPending: [
+        appointmentRequest: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Appointment'
