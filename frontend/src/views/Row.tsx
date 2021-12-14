@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./row.css";
+import "../css/row.css";
 import Slider from "react-slick";
 
 type Props = {
