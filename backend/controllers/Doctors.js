@@ -87,11 +87,21 @@ doctorsController.getListDoctor = async (req, res, next) => {
                 description: doctor.description,
                 avatar: doctor.avatar
             }
-            doctorMap[doctor._id] = data
+            if(!doctorMap[doctor.department]){
+                doctorMap[doctor.department] = []
+            }
+            doctorMap[doctor.department].push(data)
         })
-        for(doctorId in doctorMap){
-            var avatarId = doctorMap[doctorId].avatar
-            doctorMap[doctorId].avatar = await DocumentModel.findById(avatarId)
+        console.log(doctorMap)
+        for(department in doctorMap){
+            var temp = []
+            for(i in doctorMap[department]){
+                var doctor = doctorMap[department][i]
+                var avatarId = doctor.avatar
+                doctor.avatar = await DocumentModel.findById(avatarId)
+                temp.push(doctor)
+            }
+            doctorMap[department] = temp
         }
         return res.status(httpStatus.OK).json(doctorMap)
     })
