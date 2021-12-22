@@ -30,4 +30,10 @@ doctorsRoutes.post(
     '/accept-appointment',
     asyncWrapper(doctorsController.acceptAppointment)
 )
+
+doctorsRoutes.post(
+    '/detete',
+    asyncWrapper(doctorsController.deleteDoctor)
+)
+
 module.exports = doctorsRoutes

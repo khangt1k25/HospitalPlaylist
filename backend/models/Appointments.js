@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const appointmentSchema = new mongoose.Schema(
     {
         start: {
-            type: String,
+            type: Date,
             required: true,
         },
         end: {
-            type: String,
+            type: Date,
             unique: true,
             required: true,
         },
@@ -17,7 +17,7 @@ const appointmentSchema = new mongoose.Schema(
         },
         userDescription: {
             type: String,
-            required: True,
+            required: true,
         },
         status: {
             type: String,
@@ -25,15 +25,15 @@ const appointmentSchema = new mongoose.Schema(
         },
         doctorId: {
             type: String,
-            required: False,
+            required: false,
         },
         diagnoses: {
             type: String,
-            required: False,
+            required: false,
         },
         prescription: {
             type: String,
-            required: False,
+            required: false,
         }
     },
     { collection: 'appointment'}

@@ -18,12 +18,12 @@ const userSchema = new mongoose.Schema(
 
         age: {
             type: String,
-            required: True
+            required: true
         },
 
         gender: {
             type: String,
-            required: True,
+            required: true,
         },
         
         appointmentRequest: [
