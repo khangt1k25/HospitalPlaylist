@@ -1,20 +1,17 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const mainRouter = require('./routes/index')
 
 
-mongoose.connect('mongodb://localhost/hospitalplaylist', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-},()=>{
-    console.log('connected to the database')
-})
+const dbURI = 'mongodb+srv://webapp:khanh123@cluster0.hqw7c.mongodb.net/Hospital'
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then((result) => console.log("connect the mongoose database"))
 
 
-const router = require('./routes/routes')
 
 app = express()
 app.use(express.json())
-app.use('/api', router)
+app.use('/', mainRouter)
 
 app.listen(8000, (error)=>{
     if(error) console.log(error)
