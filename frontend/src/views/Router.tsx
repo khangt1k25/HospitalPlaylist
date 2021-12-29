@@ -14,7 +14,6 @@ const AppRouter = () => {
         
         <Router>
             <Header/>
-            <Footer/>
             <Routes>
                 <Route path='/' element={<Home/>}></Route>
                 <Route path='/about' element={<About/>}> </Route>
@@ -24,6 +23,7 @@ const AppRouter = () => {
                 <Route path='/calendar' element={<Calendar/>}> </Route>
                 <Route path='/craiglist' element={<Craiglist/>}> </Route>
             </Routes>
+            <Footer/>
         </Router>
     )
 }

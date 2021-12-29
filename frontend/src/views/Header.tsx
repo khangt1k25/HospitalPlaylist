@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Navbar, Container, Nav } from "react-bootstrap"
+import { Navbar, Container, Nav, Button } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import MyAvatar from './MyAvatar'
 
@@ -7,14 +7,19 @@ const Header = () => {
     let navigate = useNavigate()
     const localData = {
         'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
-        'width': 50,
-        'height': 50,
+        'width': 70,
+        'height': 70,
         'scale': 1,
         'userName': 'Avies'
     }
     const handClick = () => {
         console.log("click")
         navigate('/userprofile')
+    }
+    const signout = () => {
+        console.log('signout')
+        localStorage.removeItem('accessToken')
+        navigate('/signin')
     }
     if (localStorage.getItem('accessToken') == 'ok') {
         return (
@@ -30,13 +35,21 @@ const Header = () => {
                             </Nav>
                             <Nav>
                                 <div style={{float:'right', padding: 0, marginTop:15}}>
-                                <button style={{padding:0, margin:0, display:'block', border:10}}
-                                    onClick={handClick}
-                                >
-                                    <MyAvatar {...localData}/>
-                                </button>
-                                <p>{localData.userName}</p>
+                                    <button style={{padding:0, margin:0, display:'block', border:10}}
+                                        onClick={handClick}
+                                    >
+                                        <MyAvatar {...localData}/>
+                                    </button>
+                                    
                                 </div>
+                                <div style={{float: 'right', marginTop:15, marginRight:5, marginLeft:5}}>
+                                    <h4>{localData.userName}</h4>
+                                    <Button variant="outline-secondary" onClick={signout}>
+                                        Sign out
+                                    </Button>
+                                    
+                                </div>
+     
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -56,6 +69,7 @@ const Header = () => {
                                 <Nav.Link href="/about">About</Nav.Link>
                                 <Nav.Link href="/signin">Sign in</Nav.Link>
                                 <Nav.Link href="/signup">Sign up</Nav.Link>
+                                
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
