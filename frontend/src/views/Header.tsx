@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import { Navbar, Container, Nav } from "react-bootstrap"
-import MyAvatar from './MyAvatar';
+import { useNavigate } from "react-router-dom"
+import MyAvatar from './MyAvatar'
 
 const Header = () => {
+    let navigate = useNavigate()
     const localData = {
         'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
         'width': 50,
@@ -10,13 +12,11 @@ const Header = () => {
         'scale': 1,
         'userName': 'Avies'
     }
-    const [auth, setAuth] = useState(false);
-    useEffect(() => {
-        if (localStorage.getItem('accessToken') == 'ok') {
-            setAuth(true);
-        }
-    }, [])
-    if (auth) {
+    const handClick = () => {
+        console.log("click")
+        navigate('/userprofile')
+    }
+    if (localStorage.getItem('accessToken') == 'ok') {
         return (
             <div>
                 <Navbar bg="light" expand="lg">
@@ -26,19 +26,21 @@ const Header = () => {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href="/about">About</Nav.Link>
-                                <Nav.Link href="/signin">Sign In</Nav.Link>
-                                <Nav.Link href="/signup">Sign Up</Nav.Link>
-                                <Nav.Link href="/calendar">Calendar</Nav.Link>
+                                <Nav.Link href="/craiglist">Find doctors</Nav.Link>
+                                {/* <Nav.Link href="/signin">Sign In</Nav.Link> */}
+                                {/* <Nav.Link href="/signup">Sign Up</Nav.Link> */}
+                                {/* <Nav.Link href="/calendar">Calendar</Nav.Link> */}
+
                                 
                             </Nav>
                             <Nav>
                                 <div style={{float:'right', padding: 0, marginTop:15}}>
-                                <button style={{padding:0, margin:0, display:'block', border:10}}>
+                                <button style={{padding:0, margin:0, display:'block', border:10}}
+                                    onClick={handClick}
+                                >
                                     <MyAvatar {...localData}/>
-                                   {/* <img src={require('../asset/about.jpg')} alt="Test" /> */}
                                 </button>
                                 <p>{localData.userName}</p>
-                                    
                                 </div>
                             </Nav>
                         
@@ -51,6 +53,7 @@ const Header = () => {
             </div>
         )
     } else {
+        localStorage.removeItem('accessToken')
         return (
             <div>
                 <Navbar bg="light" expand="lg">

@@ -7,9 +7,14 @@ import About from './About';
 import UserProfile from './UserProfile';
 import Calendar from './Calendar';
 import Craiglist from './Craiglist';
+import Header from './Header';
+import Footer from './Footer';
 const AppRouter = () => {
     return (
+        
         <Router>
+            <Header/>
+            <Footer/>
             <Routes>
                 <Route path='/' element={<Home/>}></Route>
                 <Route path='/about' element={<About/>}> </Route>

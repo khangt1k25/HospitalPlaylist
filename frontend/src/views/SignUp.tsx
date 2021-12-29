@@ -24,21 +24,6 @@ const SignUp = () => {
             comfirmedPassword,
         )
         
-        
-        // await fetch('http://localhost:3007/profile', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(
-        //         {
-        //             name, 
-        //             email,
-        //             phone,
-        //             address,
-        //             password
-        //         }
-        //     )
-        // }
-        // )
         navigate('/signin')
     }
     return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./row.css";
+import "../css/row.css";
 import Slider from "react-slick";
 
 type Props = {
@@ -66,7 +66,7 @@ const Row = ({Speciality}: Props) => {
     return (
         <div>
         <h2>{Speciality}</h2>
-        <Slider {...settings}>
+        {/* <Slider {...settings}> */}
           
          {doctors.map((doctor, i) => {
            return (
@@ -82,7 +82,7 @@ const Row = ({Speciality}: Props) => {
            )
          }
         )}
-        </Slider>
+        {/* </Slider> */}
       </div>
         // <div className="Row">
         // <h2>{Speciality}</h2>
