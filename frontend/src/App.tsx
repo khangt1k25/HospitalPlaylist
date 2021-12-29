@@ -10,13 +10,18 @@ import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import About from './views/About';
 import UserProfile from './views/UserProfile';
-import AppRouter from './views/Router';
+import AppRouter from './routes/Route';
+import AdminRoute from './routes/admin';
+import Sidebar from './components/Admin/components/sidebar/Sidebar';
+
 function App() {
   return (
     <div>
       <Header/>
-      <Footer />
       <AppRouter/>
+      <Footer />
+
+
     </div>
     
       // <Router>
