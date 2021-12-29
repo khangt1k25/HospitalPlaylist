@@ -26,12 +26,7 @@ const Header = () => {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href="/about">About</Nav.Link>
-                                <Nav.Link href="/craiglist">Find doctors</Nav.Link>
-                                {/* <Nav.Link href="/signin">Sign In</Nav.Link> */}
-                                {/* <Nav.Link href="/signup">Sign Up</Nav.Link> */}
-                                {/* <Nav.Link href="/calendar">Calendar</Nav.Link> */}
-
-                                
+                                <Nav.Link href="/craiglist">Find doctors</Nav.Link>                                
                             </Nav>
                             <Nav>
                                 <div style={{float:'right', padding: 0, marginTop:15}}>
@@ -43,11 +38,7 @@ const Header = () => {
                                 <p>{localData.userName}</p>
                                 </div>
                             </Nav>
-                        
                         </Navbar.Collapse>
-                        
-                       
-                        
                     </Container>
                 </Navbar>
             </div>
