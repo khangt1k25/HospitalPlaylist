@@ -38,7 +38,7 @@ const AppRouter = () => {
                 <Route path='/userprofile' element={<UserProfile />}></Route>
             </Routes>
             <div className='container'>
-                <Sidebar></Sidebar>
+                {/* <Sidebar></Sidebar> */}
                 <Routes>
                     <Route path='/admin' element={<DashBoard />}></Route>
                     <Route path='/user' element={<UserList />}></Route> 

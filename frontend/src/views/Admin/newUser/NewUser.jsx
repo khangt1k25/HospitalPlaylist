@@ -1,8 +1,10 @@
 import "./newUser.css";
-
+import Sidebar from "../../../components/Admin/components/sidebar/Sidebar";
 export default function NewUser() {
   return (
-    <div className="newUser">
+    <div className="container">
+      <Sidebar></Sidebar>
+<div className="newUser">
       <h1 className="newUserTitle">New User</h1>
       <form className="newUserForm">
         <div className="newUserItem">
@@ -50,5 +52,7 @@ export default function NewUser() {
         <button className="newUserButton">Create</button>
       </form>
     </div>
+    </div>
+    
   );
 }

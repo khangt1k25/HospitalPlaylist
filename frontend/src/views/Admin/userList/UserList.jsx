@@ -4,6 +4,7 @@ import { DeleteOutline } from "@material-ui/icons";
 import { userRows } from "../../../services/dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Sidebar from "../../../components/Admin/components/sidebar/Sidebar";
 
 export default function UserList() {
   const [data, setData] = useState(userRows);
@@ -59,14 +60,17 @@ export default function UserList() {
   ];
 
   return (
-    <div className="userList">
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
+    <div className="container">
+      <Sidebar></Sidebar>
+      <div className="userList">
+        <DataGrid
+          rows={data}
+          disableSelectionOnClick
+          columns={columns}
+          pageSize={8}
+          checkboxSelection
+        />
+      </div>
     </div>
   );
 }

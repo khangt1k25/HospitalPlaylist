@@ -1,9 +1,10 @@
 import "./productList.css";
 import { DataGrid } from "../../../../node_modules/@material-ui/data-grid";
-import { DeleteOutline } from "../../../../node_modules/@material-ui/icons";
+import { DeleteOutline, Height } from "../../../../node_modules/@material-ui/icons";
 import { productRows } from "../../../services/dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Sidebar from "../../../components/Admin/components/sidebar/Sidebar";
 
 export default function Doctor() {
   const [data, setData] = useState(productRows);
@@ -59,14 +60,17 @@ export default function Doctor() {
   ];
 
   return (
-    <div className="productList">
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
+    <div className="container">
+      <Sidebar></Sidebar>
+      <div className="productList">
+        <DataGrid
+          rows={data}
+          disableSelectionOnClick
+          columns={columns}
+          pageSize={8}
+          checkboxSelection
+        />
+      </div>
     </div>
   );
 }
