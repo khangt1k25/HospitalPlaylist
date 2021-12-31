@@ -10,12 +10,6 @@ const SignIn = () => {
 
     const login = async (e: SyntheticEvent) => {
         e.preventDefault();        
-        // const response = await fetch('http://localhost:3007/profile', {
-        //     method: 'GET',
-        //     headers: {'Content-Type': 'application/json'}
-        // }
-        // );
-        // console.log(response.json());
         localStorage.setItem('accessToken', 'ok');
         navigate('/userprofile')
     }

@@ -7,8 +7,9 @@ import About from '../views/About';
 import UserProfile from '../views/UserProfile';
 import Calendar from '../views/Calendar';
 import Admin from '../views/Admin';
-
 import Craiglist from '../views/Craiglist';
+import Header from '../views/Header';
+import Footer from '../views/Footer';
 
 
 import Sidebar from "../components/Admin/components/sidebar/Sidebar";
@@ -24,8 +25,10 @@ import NewProduct from "../views/Admin/newProduct/NewProduct";
 import DashBoard from '../views/Admin/home/Home';
 
 const AppRouter = () => {
+    
     return (
         <Router>
+            <Header/>
             <Routes>
                 <Route path='/' element={<Home/>}></Route>
                 <Route path='/about' element={<About/>}> </Route>
@@ -37,45 +40,17 @@ const AppRouter = () => {
                 <Route path='/AD' element={localStorage.getItem('accessTokenAdmin') ? <Admin /> : <SignIn/>}></Route>
                 <Route path='/userprofile' element={<UserProfile />}></Route>
             </Routes>
-            <div className='container'>
-                {/* <Sidebar></Sidebar> */}
+            <Footer/>
+            {/* <div className='container'>
+                <Sidebar></Sidebar>
                 <Routes>
                     <Route path='/admin' element={<DashBoard />}></Route>
                     <Route path='/user' element={<UserList />}></Route> 
                     <Route path='/newUser' element={<NewUser/>}></Route>
                     <Route path='/doctor' element={<Doctor></Doctor>}></Route>
                 </Routes>
-            </div>
+            </div> */}
 
-
-
-                            {/* <Topbar />
-                    <div className="container">
-                        <Sidebar />
-                        <Routes>
-                        <Route path="/admin">
-                            <DashBoard />
-                        </Route>
-                        <Route path="/users">
-                            <UserList />
-                        </Route>
-                        <Route path="/user/:userId">
-                            <User />
-                        </Route>
-                        <Route path="/newUser">
-                            <NewUser />
-                        </Route>
-                        <Route path="/products">
-                            <ProductList />
-                        </Route>
-                        <Route path="/product/:productId">
-                            <Product />
-                        </Route>
-                        <Route path="/newproduct">
-                            <NewProduct />
-                        </Route>
-                        </Routes>
-                    </div> */}
         </Router>
     )
 }
