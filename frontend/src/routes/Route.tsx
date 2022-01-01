@@ -35,7 +35,7 @@ const AppRouter = () => {
                 <Route path='/signup' element={<SignUp/>}> </Route>
                 <Route path='/signin' element={<SignIn/>}> </Route>
                 <Route path='/userprofile' element={<UserProfile/>}> </Route>
-                <Route path='/calendar' element={<Calendar/>}> </Route>
+                <Route path='/calendar/:id' element={<Calendar/>}> </Route>
                 <Route path='/craiglist' element={<Craiglist/>}> </Route>
                 <Route path='/AD' element={localStorage.getItem('accessTokenAdmin') ? <Admin /> : <SignIn/>}></Route>
                 <Route path='/userprofile' element={<UserProfile />}></Route>

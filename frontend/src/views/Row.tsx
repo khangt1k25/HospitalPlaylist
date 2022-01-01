@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../css/row.css";
 import Slider from "react-slick";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   Speciality: string;
@@ -12,6 +14,7 @@ type Doctor = {
 
 
 const Row = ({Speciality}: Props) => {
+    let navigate = useNavigate()
     const doctors = [
         {
             id: "1",
@@ -62,45 +65,35 @@ const Row = ({Speciality}: Props) => {
         slidesToScroll: 3,
         rows: 1
         
-      };
+    };
+    const handleClick = (doctorid: String) => {
+        console.log('click')
+        console.log(doctorid)
+        navigate('/calendar/'+doctorid)
+    }   
     return (
-        <div>
-        <h2>{Speciality}</h2>
-            <Slider {...settings}>
-            
-            {doctors.map((doctor, i) => {
-            return (
-                
-                <div key={i} className={"Row"}>
-                <p>{doctor.name}</p>
-                <img
-                    key={doctor.id}
-                    className={"Row-posters-image"}
-                    src={doctor.image}
-                    alt={doctor.name}
-                />
-                </div>
-            )
-            }
-            )}
-        </Slider>
+        <div className='row-speciality' style={{marginTop:100, marginLeft:50}}>
+            <h2>{Speciality}</h2>
+                <Slider {...settings}>
+                    {doctors.map((doctor, i) => {
+                    return (
+                        
+                        <div key={doctor.id} className={"Row"}>
+                        <Button key= {doctor.id} onClick={()=>{handleClick(doctor.id)}}>
+                            <p>{doctor.name}</p>
+                            <img
+                                key={doctor.id}
+                                className={"Row-posters-image"}
+                                src={doctor.image}
+                                alt={doctor.name}
+                            />
+                        </Button>
+                        </div>
+                    )
+                    }
+                    )}
+            </Slider>
       </div>
-        // <div className="Row">
-        // <h2>{Speciality}</h2>
-        // <div className="Row-posters">
-        //     {doctors.map((doctor, i) => (
-        //         <div>
-        //         <p>{doctor.name}</p>
-        //         <img
-        //             key={doctor.id}
-        //             className={"Row-posters-image"}
-        //             src={doctor.image}
-        //             alt={doctor.name}
-        //         />
-        //         </div>
-        //     ))}
-        // </div>
-        // </div>
     );
 };
 
