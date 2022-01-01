@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Row,Col, Form, Button } from 'react-bootstrap';
+import { Container, Row,Col, Form, Button, Spinner } from 'react-bootstrap';
 import "../css/appointmentTable.css";
 import MyAvatar from './MyAvatar';
 
@@ -42,7 +42,7 @@ const UserProfile = () => {
                         </div>
                     </Col>
                     <Col style={{alignContent:'center'}}>
-                        <h1>User Profile</h1>
+                        <h1>Profile</h1>
                         <Form className="form mb-3">     
                             <Form.Group controlId="formCategory1 mb-3">
                                 <Form.Label>Username</Form.Label>
@@ -63,7 +63,7 @@ const UserProfile = () => {
             </Container>
             <Container style={{marginTop: 100}}>
                 <Row style={{width:'100%'}}>
-                    <Col style={{alignItems:'center'}}>
+                    <Col style={{alignItems:'center', paddingTop:50}}>
                         <h1  style={{alignItems:'center'}}>Appointments</h1>
                         <table className="appointmentTable">
                         <tbody>
@@ -80,7 +80,8 @@ const UserProfile = () => {
                                             <td>{appoint.id}</td>
                                             <td>{appoint.date}</td>
                                             <td>{appoint.doctor}</td>
-                                            <td>{appoint.status}</td>
+                                            {/* <td>{appoint.status}</td> */}
+                                            {appoint.status=='ended'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
                                         </tr>
                                     )
                                 }

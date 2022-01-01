@@ -3,6 +3,9 @@ import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSett
 import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
 import {L10n} from '@syncfusion/ej2-base';
+import { useParams } from 'react-router-dom';
+import { Container, Row, Col,Card} from 'react-bootstrap';
+import MyAvatar from './MyAvatar';
 
 L10n.load(
     {
@@ -18,6 +21,22 @@ L10n.load(
 )
 
 const Calendar = () => {
+    console.log("Hello")
+    const id = useParams()['id']
+    let doctorData = {
+        "id": id,
+        "name": "NguyenTran Khang",
+        "speciality": "General",
+        "email": "khangnt183559@outlook",
+        "address": "HaNoi city, VietNam",
+        "imageUrl": "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg"
+    }
+    let imageData = {
+        'imageUrl': doctorData['imageUrl'],
+        'width': 250,
+        'height': 250,
+        'scale': 1,
+    }
     let localData = [
         {
             Id: 1,
@@ -83,14 +102,40 @@ const Calendar = () => {
         )
     }
     return (
-        <div style={{marginBottom:'auto'}}>
-            <ScheduleComponent currentView='Week' selectedDate={new Date(2021, 11, 29)}
-                eventSettings={{dataSource: localData}}
-                views={['Day', 'Week', 'Month', 'TimelineDay', 'TimelineWeek']}
-                editorTemplate={editorWindowTemplate.bind(this)}
-            >
-                <Inject services={[Day, Week, Month, Agenda]} />
-            </ScheduleComponent>
+        <div className="calendar">
+            <div className="doctorInfor" style={{marginTop:50, marginLeft:50}}>
+                <Container>
+                    <Row style={{width:'100%'}}>
+                        <Col>
+                            <div style={{float:'left'}}>
+                                <MyAvatar {...imageData}/>
+                            </div>
+                        </Col>
+                        <Col>
+                            <div>
+                                <h4>ID: {id}</h4>
+                                <h4>Name</h4>
+                                <p>{doctorData.name}</p>
+                                <h4>Speciality</h4>
+                                <p>{doctorData.speciality}</p>
+                                <h4>Work address</h4>
+                                <p>{doctorData.address}</p>
+                                <h4>Contact</h4>
+                                <p>{doctorData.email}</p>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+            <div className="doctorCalendar" style={{marginBottom:'auto', marginLeft:50, marginRight:50, marginTop:100}}>
+                <ScheduleComponent currentView='Week' selectedDate={new Date(2021, 11, 29)}
+                    eventSettings={{dataSource: localData}}
+                    views={['Day', 'Week', 'Month', 'TimelineDay', 'TimelineWeek']}
+                    editorTemplate={editorWindowTemplate.bind(this)}
+                >
+                   <Inject services={[Day, Week, Month, Agenda]} />
+                </ScheduleComponent>
+            </div>
         </div>
       
     )
