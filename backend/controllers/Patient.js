@@ -1,7 +1,9 @@
 const PatientModel = require('../models/Users')
 const DocumentModel = require('../models/Documents')
 const AppointmentModel = require('../models/Appointments')
+const httpStatus = require('../utils/httpStatus')
 const PatientController = {}
+const bcrypt = require('bcrypt')
 
 PatientController.login = async (req, res, next) => {
     const {username, password} = req.body
