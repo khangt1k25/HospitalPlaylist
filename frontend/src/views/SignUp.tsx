@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import '../css/sign.css';
+import axios from 'axios';
 
 
 const SignUp = () => {
@@ -23,9 +24,32 @@ const SignUp = () => {
             password,
             comfirmedPassword,
         )
+        var body = {
+            username: name,
+            email: email,
+            password: password,
+            age: 30,
+            department: "Dentist",
+            description: "Hello i am a doctor"
+        };
+        // axios.defaults.baseURL = 'https://api.example.com';
+        axios.defaults.baseURL = "http://localhost:8000"
+        const headers = {
+            'Content-Type': 'application/json',
+            // 'Authorization': 'JWT fefege...'
+        }
+        // , {headers: headers}
+        axios.post('api/doctors/register/', body)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+        });
         
         navigate('/signin')
     }
+
     return (
                     <div className='signup'>
                         <h3>Be a member</h3>
