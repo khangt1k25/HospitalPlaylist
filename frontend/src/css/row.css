@@ -1,7 +1,8 @@
 .Row {
   margin-top: 50px;  
   margin-left: 20px;
-  
+  margin-right: 20px;
+  display: block;
   
   
 }
@@ -10,7 +11,8 @@
   text-align: center;
 }
 .Row-posters {
-    display: flex;
+    /* display: flex; */
+    display: inline-block;
     overflow-y: hidden;
     overflow-x: scroll;
     /* padding: 20px; */
@@ -19,6 +21,8 @@
     max-height: 300px;
     /* margin: 10px; */
     transition: transform 450ms;
+    /* margin-top: 500px;  
+    margin-left: 500px; */
 
 }
 .Row-posters-image {
