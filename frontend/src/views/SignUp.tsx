@@ -2,8 +2,8 @@ import React, { SyntheticEvent, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import '../css/sign.css';
-import axios from 'axios';
-
+// import axios from 'axios';
+import { registerDoctor } from '../services/doctor';
 
 const SignUp = () => {
     let navigate = useNavigate()
@@ -13,17 +13,9 @@ const SignUp = () => {
     const [address, setAddress] = useState('');
     const [password, setPassword] = useState('');
     const [comfirmedPassword, setcomfirmedPassword] = useState('');
-   
+    
     const register = async (e: SyntheticEvent) => {
         e.preventDefault();
-        console.log(
-            name,
-            email,
-            phone,
-            address,
-            password,
-            comfirmedPassword,
-        )
         var body = {
             username: name,
             email: email,
@@ -32,26 +24,21 @@ const SignUp = () => {
             department: "Dentist",
             description: "Hello i am a doctor"
         };
-        // axios.defaults.baseURL = 'https://api.example.com';
-        axios.defaults.baseURL = "http://localhost:8000"
-        const headers = {
-            'Content-Type': 'application/json',
-            // 'Authorization': 'JWT fefege...'
-        }
-        // , {headers: headers}
-        axios.post('api/doctors/register/', body)
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-        });
-        
+        // axios.defaults.baseURL = "http://localhost:8000"
+        // axios.post('api/doctors/register/', body)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        // });
+        registerDoctor(body);
+
         navigate('/signin')
     }
 
     return (
-                    <div className='signup'>
+        <div className='signup'>
                         <h3>Be a member</h3>
                         <Form onSubmit={register}>
                             <Form.Group as={Row} className="mb-3" controlId="formPlaintextName">
