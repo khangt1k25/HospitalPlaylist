@@ -2,9 +2,9 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8000"
 
-export const registerDoctor = (body) => {
+export const registerPatient = (body) => {
     
-    axios.post('api/doctors/register/', body)
+    axios.post('/api/patient/register', body)
         .then(function (response) {
         console.log(response);
         })
@@ -12,9 +12,8 @@ export const registerDoctor = (body) => {
         console.log(error);
     });
 }
-
-export const loginDoctor = (body) => {
-    axios.post('/api/doctors/login', body)
+export const loginPatient = (body) => {
+    axios.post('/api/patient/login', body)
         .then(function (response) {
             console.log(response);
         })
