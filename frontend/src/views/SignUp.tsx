@@ -4,39 +4,46 @@ import { useNavigate } from 'react-router-dom';
 import '../css/sign.css';
 // import axios from 'axios';
 import { registerDoctor } from '../services/doctor';
+import { registerPatient } from '../services/patient';
 
 const SignUp = () => {
     let navigate = useNavigate()
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
+    const [age, setAge] = useState('');
     const [password, setPassword] = useState('');
     const [comfirmedPassword, setcomfirmedPassword] = useState('');
-    
+    const [gender, setgender] = useState('');
+    const [speciality, setspeciality] = useState('');
+    const [description, setdescription] = useState('')
+
     const register = async (e: SyntheticEvent) => {
         e.preventDefault();
-        var body = {
-            username: name,
-            email: email,
-            password: password,
-            age: 30,
-            department: "Dentist",
-            description: "Hello i am a doctor"
-        };
-        // axios.defaults.baseURL = "http://localhost:8000"
-        // axios.post('api/doctors/register/', body)
-        //   .then(function (response) {
-        //     console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        // });
-        registerDoctor(body);
+        let body;
 
+        if (speciality=='patient'){
+            body = {
+                username: name,
+                email: email,
+                password: password,
+                age: age,
+                gender: gender,
+            }
+            registerPatient(body)
+        }else{
+            body = {
+                username: name,
+                email: email,
+                password: password,
+                age: age,
+                department: speciality,
+                description: description,
+            }
+            registerDoctor(body);
+        }
+        
         navigate('/signin')
     }
-
     return (
         <div className='signup'>
                         <h3>Be a member</h3>
@@ -57,20 +64,40 @@ const SignUp = () => {
                                 <Form.Control type="email" name="email" placeholder="Email" required onChange={e=>setEmail(e.target.value)}  />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextPhone">
+                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextAge">
                                 <Form.Label column sm="2">
-                                Phone
+                                Age
                                 </Form.Label>
                                 <Col sm="10">
-                                <Form.Control type="phone" name="phone" placeholder="Phone number" required onChange={e=>setPhone(e.target.value)}  />
+                                <Form.Control type="age" name="age" placeholder="Age" required onChange={e=>setAge(e.target.value)} />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextAddress">
+                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextGender">
                                 <Form.Label column sm="2">
-                                Address
+                                Gender
                                 </Form.Label>
                                 <Col sm="10">
-                                <Form.Control type="address" name="address" placeholder="Address" required onChange={e=>setAddress(e.target.value)}  />
+                                    <Form.Select required onChange={e=>setgender(e.target.value)}>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </Form.Select>
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextSpeciality">
+                                <Form.Label column sm="2">
+                                    Speciality
+                                </Form.Label>
+                                <Col sm="10">
+                                    <Form.Select required onChange={e=>setspeciality(e.target.value)}>
+                                        <option>Patient</option>
+                                        <option>General practitioner</option>
+                                        <option>Surgeon</option>
+                                        <option>Internist</option>
+                                        <option>Neurosurgeon</option>
+                                        <option>Dentist</option>
+                                        <option>Acupuncture practitioner</option>
+                                        <option>Vet</option>
+                                    </Form.Select>
                                 </Col>
                             </Form.Group>
                             <Form.Group as={Row} className="mb-3" controlId="formPlaintextPassword">
@@ -87,6 +114,14 @@ const SignUp = () => {
                                 </Form.Label>
                                 <Col sm="10">
                                 <Form.Control type="password" name="confirmedpassword" placeholder="Confirmed Password" required onChange={e=>setcomfirmedPassword(e.target.value)} />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row} className="mb-3" controlId="formPlaintextDescription">
+                                <Form.Label column sm="2">
+                                    Description
+                                </Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="description" as="textarea" style={{height:100}} name="description" placeholder="Some description" required onChange={e=>setdescription(e.target.value)} />
                                 </Col>
                             </Form.Group>
                             <Button variant="primary" type="submit">
