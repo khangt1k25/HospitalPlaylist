@@ -19,9 +19,11 @@ const SignIn = () => {
             "password": password,
         } 
         if (isDoctor=='NO'){
-            loginPatient(body)
+            var data = await loginPatient(body)
+            console.log(data)
         }else{
-            loginDoctor(body)
+            var data = await loginDoctor(body)
+            console.log(data)
         }
         navigate('/userprofile')
     }

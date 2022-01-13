@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import '../css/sign.css';
@@ -16,12 +16,18 @@ const SignUp = () => {
     const [gender, setgender] = useState('');
     const [speciality, setspeciality] = useState('');
     const [description, setdescription] = useState('')
-
+    // console.log(speciality)
+    // useEffect(()=>{
+    //     console.log(speciality)
+    // },[speciality])
+    // console.log(speciality)
+    // console.log(password)
+    // console.log(speciality)
     const register = async (e: SyntheticEvent) => {
-        e.preventDefault();
+        // e.preventDefault();
         let body;
 
-        if (speciality=='patient'){
+        if (speciality==='Patient'){
             body = {
                 username: name,
                 email: email,
@@ -29,7 +35,9 @@ const SignUp = () => {
                 age: age,
                 gender: gender,
             }
-            registerPatient(body)
+            console.log('dfdfd')
+            var data = registerPatient(body)
+            console.log(data)
         }else{
             body = {
                 username: name,
@@ -39,7 +47,11 @@ const SignUp = () => {
                 department: speciality,
                 description: description,
             }
-            registerDoctor(body);
+            console.log("register doctor")
+            const res = await registerDoctor(body);
+            console.log(res.data)
+            // var dataPromise = await registerDoctor(body);
+            // console.log(dataPromise.data)
         }
         
         navigate('/signin')
@@ -89,8 +101,8 @@ const SignUp = () => {
                                 </Form.Label>
                                 <Col sm="10">
                                     <Form.Select required onChange={e=>setspeciality(e.target.value)}>
-                                        <option>Patient</option>
-                                        <option>General practitioner</option>
+                                        <option value={'Patient'}>Patient</option>
+                                        <option value={''}>General practitioner</option>
                                         <option>Surgeon</option>
                                         <option>Internist</option>
                                         <option>Neurosurgeon</option>
@@ -124,7 +136,7 @@ const SignUp = () => {
                                     <Form.Control type="description" as="textarea" style={{height:100}} name="description" placeholder="Some description" required onChange={e=>setdescription(e.target.value)} />
                                 </Col>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button variant="primary" onClick={register}>
                                 Sign up
                             </Button>
                         </Form>
