@@ -7,7 +7,6 @@ const doctorsController = {}
 
 doctorsController.login = async (req, res, next) => {
     const {username, password} = req.body
-    console.log(req.body)
     const user = await DoctorModel.findOne({username}).lean()
     if(!user){
         return res.json({status:'error', error:'Invalid username'})
@@ -20,11 +19,9 @@ doctorsController.login = async (req, res, next) => {
 
 doctorsController.register = async (req, res, next) => {
     const { username, email, password: plainTextPassword, age, department, description} = req.body
-    console.log(req.body)
     const salt = await bcrypt.genSalt(10)
     const password = await bcrypt.hash(plainTextPassword, salt)
     let avatar = await DocumentModel.findById("61b38fdb3c404567453b207b")
-    console.log(avatar)
     doctor = new DoctorModel({
         username: username,
         email: email,
@@ -60,8 +57,6 @@ doctorsController.register = async (req, res, next) => {
 
 doctorsController.getDetailInformation = async (req, res, next) =>{
     const doctorId = req.body.id
-    console.log(req.id)
-    console.log(doctorId)
     try{
         let doctor = await DoctorModel.findById(doctorId)
         if(doctor == null){
@@ -81,6 +76,7 @@ doctorsController.getListDoctor = async (req, res, next) => {
         var doctorMap = {}
         doctors.forEach(function(doctor){
             data = {
+                doctorId: doctor._id,
                 username: doctor.username,
                 email: doctor.email,
                 age: doctor.age,
@@ -93,7 +89,6 @@ doctorsController.getListDoctor = async (req, res, next) => {
             }
             doctorMap[doctor.department].push(data)
         })
-        console.log(doctorMap)
         for(department in doctorMap){
             var temp = []
             for(i in doctorMap[department]){
@@ -127,7 +122,6 @@ doctorsController.acceptAppointment = async (req, res) => {
 
 doctorsController.deleteDoctor = async (req, res) => {
     const doctorId = req.body.id 
-    console.log(doctorId)
     DoctorModel.findOneAndDelete({_id: doctorId}, function(err){
         if(err){
             console.log("Can't delete")

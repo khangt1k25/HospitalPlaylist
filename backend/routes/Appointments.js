@@ -1,4 +1,5 @@
 const express = require('express')
+const appointmentsController = require('../controllers/Appointments')
 const appointmentController = require('../controllers/Appointments')
 const {asyncWrapper} = require('../utils/asyncWrapper')
 
@@ -6,13 +7,18 @@ const {asyncWrapper} = require('../utils/asyncWrapper')
 const appointmentRoute = express.Router()
 
 appointmentRoute.post(
-    '/createAppointment',
-    asyncWrapper(appointmentController.createAppointment)
+    '/create',
+    asyncWrapper(appointmentController.create)
 )
 
-appointmentRoute.get(
-    '/getList',
-    asyncWrapper(appointmentController.getListAppointment)
+appointmentRoute.post(
+    '/detail',
+    asyncWrapper(appointmentsController.detail)
 )
+
+// appointmentRoute.get(
+//     '/getList',
+//     asyncWrapper(appointmentController.getListAppointment)
+// )
 
 module.exports = appointmentRoute

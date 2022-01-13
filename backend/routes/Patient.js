@@ -14,14 +14,24 @@ patientRoutes.post(
     asyncWrapper(PatientController.login)
 )
 
+// patientRoutes.post(
+//     '/request-appointment',
+//     asyncWrapper(PatientController.requestAppointment)
+// )
+
 patientRoutes.post(
-    '/request-appointment',
-    asyncWrapper(PatientController.requestAppointment)
+    '/detail',
+    asyncWrapper(PatientController.detail)
 )
 
 patientRoutes.get(
-    '/get-user-info',
-    asyncWrapper(PatientController.getuserinfo)
+    '/getList',
+    asyncWrapper(PatientController.getList)
+)
+
+patientRoutes.post(
+    '/delete',
+    asyncWrapper(PatientController.delete)
 )
 
 module.exports = patientRoutes

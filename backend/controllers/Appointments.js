@@ -3,8 +3,8 @@ const UserModel = require('../models/Users')
 const httpStatus = require('../utils/httpStatus')
 const appointmentsController = {}
 
-appointmentsController.createAppointment = async (req, res, next) => {
-    const {start, end, userId, userDescription} = req.body
+appointmentsController.create = async (req, res, next) => {
+    const {start, end, userId, userDescription, doctorId} = req.body
     console.log(req.body)
     var status = "Pending"
     appointment = new AppointmentModel({
@@ -12,14 +12,15 @@ appointmentsController.createAppointment = async (req, res, next) => {
         end: new Date(end),
         userId: userId,
         userDescription: userDescription,
-        status: status
+        status: status,
+        doctorId: doctorId
     })
 
 
     try{
-        let user = await UserModel.findById(userId)
+        // let user = await UserModel.findById(userId)
         const saveAppointment = await appointment.save()
-        console.log("Create appointment success")
+        console.log("Create appointment successfully")
         return res.status(httpStatus.CREATED).json({
             data :{
                 id: saveAppointment._id,
@@ -37,24 +38,40 @@ appointmentsController.createAppointment = async (req, res, next) => {
     }
 }
 
-
-appointmentsController.getListAppointment = async (req, res, next) => {
-    const {year} = req.body
-    AppointmentModel.find({}, (error, appointments) => {
-        let countMonth = {}
-        appointments.forEach(function(appointment){
-            if (appointment.start.getYear() + 1900 == year){
-                let month = appointment.start.getMonth() + 1 
-                if(countMonth.hasOwnProperty(month) == false){
-                    countMonth[month] = 1
-                }
-                else{
-                    countMonth[month] += 1
-                }
-            }
+appointmentsController.detail = async (req, res) => {
+    appointmentId = req.body.appointmentId
+    try {
+        appointment = AppointmentModel.findById(appointmentId)
+        if (appointment == null){
+            res.status(httpStatus.NOT_FOUND).json({message: "apointment not found."})
+        }
+        else res.status(httpStatus.OK).json({
+            data: appointment
         })
-        return res.status(httpStatus.OK).json(countMonth)
-    })
+    }
+    catch(e){
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
+    }
 }
+
+
+// appointmentsController.getListAppointment = async (req, res, next) => {
+//     const {year} = req.body
+//     AppointmentModel.find({}, (error, appointments) => {
+//         let countMonth = {}
+//         appointments.forEach(function(appointment){
+//             if (appointment.start.getYear() + 1900 == year){
+//                 let month = appointment.start.getMonth() + 1 
+//                 if(countMonth.hasOwnProperty(month) == false){
+//                     countMonth[month] = 1
+//                 }
+//                 else{
+//                     countMonth[month] += 1
+//                 }
+//             }
+//         })
+//         return res.status(httpStatus.OK).json(countMonth)
+//     })
+// }
 
 module.exports = appointmentsController
