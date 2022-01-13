@@ -103,10 +103,24 @@ doctorsController.getListDoctor = async (req, res, next) => {
     })
 }
 
+doctorsController.getListByDepartment = async (req, res) => {
+    const department = req.body.department
+    try{
+        doctor_list = await DoctorModel.find({department: department})
+        if (doctor_list == null){
+            return res.status(httpStatus.NOT_FOUND).json({message: "doctor not found"})
+        }
+        return res.status(httpStatus.OK).json({doctors: doctor_list})
+    }
+    catch(e){
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
+    }
+}
+
 doctorsController.acceptAppointment = async (req, res) => {
     const {appointmentid} = req.body
     try{
-      appointment = AppointmentModel.findById(appointmentid)
+      appointment = await AppointmentModel.findById(appointmentid)
       if (appointment == null){
         return res.status(httpStatus.NOT_FOUND.json({message: "No appointment"}))
       }

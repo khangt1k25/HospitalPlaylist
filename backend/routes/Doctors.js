@@ -36,4 +36,8 @@ doctorsRoutes.post(
     asyncWrapper(doctorsController.deleteDoctor)
 )
 
+doctorsRoutes.post(
+    '/getListByDepartment',
+    asyncWrapper(doctorsController.getListByDepartment)
+)
 module.exports = doctorsRoutes

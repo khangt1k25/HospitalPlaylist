@@ -16,6 +16,26 @@ appointmentRoute.post(
     asyncWrapper(appointmentsController.detail)
 )
 
+appointmentRoute.post(
+    '/getAppointmentOfDoctor',
+    asyncWrapper(appointmentController.getAppointmentOfDoctor)
+)
+
+appointmentRoute.post(
+    '/getAppointmentOfUser',
+    asyncWrapper(appointmentController.getAppointmentOfUser)
+)
+
+appointmentRoute.post(
+    '/countByMonth',
+    asyncWrapper(appointmentController.countByMonth)
+)
+
+appointmentRoute.post(
+    '/approve',
+    asyncWrapper(appointmentController.aprrove)
+)
+
 // appointmentRoute.get(
 //     '/getList',
 //     asyncWrapper(appointmentController.getListAppointment)
