@@ -5,7 +5,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 const Footer = () => {
 
     return (          
-        <div className='footer' style={{marginTop:200}}>
+        <div className='footer' style={{marginTop:20}}>
             <Navbar className="fixed-bottom navbar-light" expand="lg" bg="light">
                 <Container>
                     <Navbar.Brand >Hospital Schedule</Navbar.Brand>
