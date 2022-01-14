@@ -126,23 +126,23 @@ appointmentsController.aprrove = async (req, res) => {
     }
 }
 
-// appointmentsController.getListAppointment = async (req, res, next) => {
-//     const {year} = req.body
-//     AppointmentModel.find({}, (error, appointments) => {
-//         let countMonth = {}
-//         appointments.forEach(function(appointment){
-//             if (appointment.start.getYear() + 1900 == year){
-//                 let month = appointment.start.getMonth() + 1 
-//                 if(countMonth.hasOwnProperty(month) == false){
-//                     countMonth[month] = 1
-//                 }
-//                 else{
-//                     countMonth[month] += 1
-//                 }
-//             }
-//         })
-//         return res.status(httpStatus.OK).json(countMonth)
-//     })
-// }
+appointmentsController.getListAppointment = async (req, res, next) => {
+    const {year} = req.body
+    AppointmentModel.find({}, (error, appointments) => {
+        let countMonth = {}
+        appointments.forEach(function(appointment){
+            if (appointment.start.getYear() + 1900 == year){
+                let month = appointment.start.getMonth() + 1 
+                if(countMonth.hasOwnProperty(month) == false){
+                    countMonth[month] = 1
+                }
+                else{
+                    countMonth[month] += 1
+                }
+            }
+        })
+        return res.status(httpStatus.OK).json(countMonth)
+    })
+}
 
 module.exports = appointmentsController
