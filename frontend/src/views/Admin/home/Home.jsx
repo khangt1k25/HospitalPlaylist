@@ -10,7 +10,7 @@ import "../../../css/App.css";
 export default function DashBoard() {
   return (
     <div className="container">
-      <Sidebar></Sidebar>
+      {/* <Sidebar></Sidebar> */}
 
       <div className="home">
         <FeaturedInfo />

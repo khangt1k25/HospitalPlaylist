@@ -1,13 +1,13 @@
 import "./featuredInfo.css";
-import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import { getListUser } from "../../../../services/admin.js";
+import { getListPatient } from "../../../../services/getAppointment";
+//import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
 // import { useHistory } from "react-router-dom";
 
 export default function FeaturedInfo() {
-  // const history = useHistory();
-  // const routeChange = (path) =>{ 
-  //   // let path = `newPath`; 
-  //   history.push(path);
-  // }
+
+  var req = getListPatient();
+  
   return (
     <div className="featured">
       <div className="featuredItem" >
@@ -15,7 +15,7 @@ export default function FeaturedInfo() {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">3000</span>
           <span className="featuredMoneyRate">
-            -11.4% <ArrowDownward  className="featuredIcon negative"/>
+            -11.4% 
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
@@ -26,7 +26,7 @@ export default function FeaturedInfo() {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">500</span>
           <span className="featuredMoneyRate">
-            -1.4% <ArrowDownward className="featuredIcon negative"/>
+            -1.4% 
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
@@ -37,7 +37,7 @@ export default function FeaturedInfo() {
         <div className="featuredMoneyContainer">
           <span className="featuredMoney">xxx</span>
           <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon"/>
+            +2.4 
           </span>
         </div>
         <span className="featuredSub">Compared to last month</span>
