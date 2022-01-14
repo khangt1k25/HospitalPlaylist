@@ -9,7 +9,7 @@ const SignIn = () => {
     let navigate = useNavigate()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isDoctor, setisDoctor] = useState('NO');
+    const [role, setrole] = useState('Patient');
 
     const login = async (e: SyntheticEvent) => {
         e.preventDefault();        
@@ -18,14 +18,30 @@ const SignIn = () => {
             "username": username,
             "password": password,
         } 
-        if (isDoctor=='NO'){
+        if (role == 'Patient'){
             var data = await loginPatient(body)
             console.log(data)
-        }else{
+            
+            if (data.status=='ok'){
+                navigate('/userprofile')
+            }else{
+                alert("Login patient Fail")
+                window.location.reload()
+            }
+            
+        }else if (role == 'Doctor'){
             var data = await loginDoctor(body)
-            console.log(data)
+            
+            if (data.status=='ok'){
+                navigate('/userprofile')
+            }else{
+                alert("Login doctor Fail")
+                window.location.reload()
+            }
+        }else{
+            console.log("Admin here")
         }
-        navigate('/userprofile')
+        
     }
 
     return (
@@ -41,10 +57,11 @@ const SignIn = () => {
                     <Form.Control type="password" name="password" placeholder="Enter Password" required onChange={e=>setPassword(e.target.value)}  />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicIsDoctor">
-                    <Form.Label>Is Doctor?</Form.Label>
-                    <Form.Select required onChange={e=>setisDoctor(e.target.value)} >
-                        <option>Yes</option>
-                        <option>No</option>
+                    <Form.Label>Role</Form.Label>
+                    <Form.Select required onChange={e=>setrole(e.target.value)} >
+                        <option value='Patient'>Patient</option>
+                        <option value='Doctor'>Doctor</option>
+                        <option value='Admin'>Admin</option>
                     </Form.Select>
                 </Form.Group>
                 <Button variant="primary" type="submit">
@@ -57,3 +74,4 @@ const SignIn = () => {
 }
 
 export default SignIn
+

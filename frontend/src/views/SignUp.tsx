@@ -13,47 +13,38 @@ const SignUp = () => {
     const [age, setAge] = useState('');
     const [password, setPassword] = useState('');
     const [comfirmedPassword, setcomfirmedPassword] = useState('');
-    const [gender, setgender] = useState('');
-    const [speciality, setspeciality] = useState('');
+    const [gender, setgender] = useState('Male');
+    const [speciality, setspeciality] = useState('Patient');
     const [description, setdescription] = useState('')
-    // console.log(speciality)
-    // useEffect(()=>{
-    //     console.log(speciality)
-    // },[speciality])
-    // console.log(speciality)
-    // console.log(password)
-    // console.log(speciality)
+    
     const register = async (e: SyntheticEvent) => {
-        // e.preventDefault();
-        let body;
-
-        if (speciality==='Patient'){
+        e.preventDefault();
+        let body
+        if (speciality == 'Patient'){
             body = {
-                username: name,
-                email: email,
-                password: password,
-                age: age,
-                gender: gender,
-            }
-            console.log('dfdfd')
-            var data = registerPatient(body)
+                "username": name,
+                "email": email,
+                "password": password,
+                "age":age,
+                "gender":gender,
+            } 
+            var data = await registerPatient(body)
+            // need handle error
             console.log(data)
-        }else{
+        } else{
+            
             body = {
-                username: name,
-                email: email,
-                password: password,
-                age: age,
-                department: speciality,
-                description: description,
-            }
-            console.log("register doctor")
-            const res = await registerDoctor(body);
-            console.log(res.data)
-            // var dataPromise = await registerDoctor(body);
-            // console.log(dataPromise.data)
+                "username": name,
+                "email": email,
+                "password": password,
+                "age":age,
+                "department": speciality,
+                "description": description,
+            } 
+            var data = await registerPatient(body)
+            // need handle error
+            console.log(data)
         }
-        
         navigate('/signin')
     }
     return (
@@ -90,8 +81,8 @@ const SignUp = () => {
                                 </Form.Label>
                                 <Col sm="10">
                                     <Form.Select required onChange={e=>setgender(e.target.value)}>
-                                        <option>Male</option>
-                                        <option>Female</option>
+                                        <option value='Male'>Male</option>
+                                        <option value='Female'>Female</option>
                                     </Form.Select>
                                 </Col>
                             </Form.Group>
@@ -102,13 +93,13 @@ const SignUp = () => {
                                 <Col sm="10">
                                     <Form.Select required onChange={e=>setspeciality(e.target.value)}>
                                         <option value={'Patient'}>Patient</option>
-                                        <option value={''}>General practitioner</option>
-                                        <option>Surgeon</option>
-                                        <option>Internist</option>
-                                        <option>Neurosurgeon</option>
-                                        <option>Dentist</option>
-                                        <option>Acupuncture practitioner</option>
-                                        <option>Vet</option>
+                                        <option value={'General practitioner'}>General practitioner</option>
+                                        <option value={'Surgeon'}>Surgeon</option>
+                                        <option value={'Internist'}>Internist</option>
+                                        <option value={'Neurosurgeon'}>Neurosurgeon</option>
+                                        <option value={'Dentist'}>Dentist</option>
+                                        <option value={'Acupuncture practitioner'}>Acupuncture practitioner</option>
+                                        <option value={'Vet'}>Vet</option>
                                     </Form.Select>
                                 </Col>
                             </Form.Group>
