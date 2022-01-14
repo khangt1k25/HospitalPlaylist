@@ -21,13 +21,12 @@ export default function DashBoard() {
     setData(req);
     },[]);
 
-  console.log(data);
-  const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  //console.log(data);
+  const month = {"1":"Jan","2": "Feb","3": "Mar","4": "Apr","5": "May","6": "Jun","7": "Jul","8": "Aug","9": "Sep","10": "Oct","11": "Nov","12": "Dec"};
   const dataChart = [];
   for (const [key, value] of Object.entries(data)){
-    dataChart.push()
+    userData[parseInt(key)-1]["Appointments"] = value*1000;
   }
-
   return (
     <div className="container">
       {/* <Sidebar></Sidebar> */}
@@ -35,7 +34,7 @@ export default function DashBoard() {
       <div className="home">
         <FeaturedInfo />
         <Chart
-          data={data}
+          data={userData}
           title="Appointments"
           grid
           dataKey="Appointments"

@@ -1,51 +1,51 @@
 export const userData = [
     {
       name: "Jan",
-      "Appointments": 4000,
+      "Appointments": 0,
     },
     {
       name: "Feb",
-      "Appointments": 3000,
+      "Appointments": 0,
     },
     {
       name: "Mar",
-      "Appointments": 5000,
+      "Appointments": 0,
     },
     {
       name: "Apr",
-      "Appointments": 4000,
+      "Appointments": 0,
     },
     {
       name: "May",
-      "Appointments": 3000,
+      "Appointments": 0,
     },
     {
       name: "Jun",
-      "Appointments": 2000,
+      "Appointments": 0,
     },
     {
       name: "Jul",
-      "Appointments": 4000,
+      "Appointments": 0,
     },
     {
       name: "Agu",
-      "Appointments": 3000,
+      "Appointments": 0,
     },
     {
       name: "Sep",
-      "Appointments": 4000,
+      "Appointments": 0,
     },
     {
       name: "Oct",
-      "Appointments": 1000,
+      "Appointments": 0,
     },
     {
       name: "Nov",
-      "Appointments": 4000,
+      "Appointments": 0,
     },
     {
       name: "Dec",
-      "Appointments": 3000,
+      "Appointments": 0,
     },
   ];
 
