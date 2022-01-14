@@ -7,12 +7,12 @@ const doctorsController = {}
 
 doctorsController.login = async (req, res, next) => {
     const {username, password} = req.body
-    const user = await DoctorModel.findOne({username}).lean()
+    const user = await DoctorModel.findOne({username})
     if(!user){
         return res.json({status:'error', error:'Invalid username'})
     }
     if(await bcrypt.compare(password, user.password)){
-        return res.json({status:'ok'})
+        return res.json({status: 'ok', user: user})
     }
     return res.json({status:'error', error:'Password not match'})
 }
