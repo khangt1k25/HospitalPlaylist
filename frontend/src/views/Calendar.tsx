@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel} from '@syncfusion/ej2-react-schedule';
 import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns';
 import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
@@ -6,6 +6,9 @@ import {L10n} from '@syncfusion/ej2-base';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col,Card} from 'react-bootstrap';
 import MyAvatar from './MyAvatar';
+import axios from "axios";
+import { detailDoctor } from '../services/doctor';
+
 
 L10n.load(
     {
@@ -21,22 +24,30 @@ L10n.load(
 )
 
 const Calendar = () => {
-    console.log("Hello")
+
     const id = useParams()['id']
-    let doctorData = {
-        "id": id,
-        "name": "NguyenTran Khang",
-        "speciality": "General",
-        "email": "khangnt183559@outlook",
-        "address": "HaNoi city, VietNam",
-        "imageUrl": "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg"
+    const [doctorData, setdoctorData] = useState(Object)
+    const [imageData, setimageData] = useState(Object)
+    const fetchData = async () => {
+        const body = {
+            "id": id
+        }
+        var response = await detailDoctor(body)   
+        setdoctorData(response['data']);
+        const img = {
+            'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
+            'width': 250,
+            'height': 250,
+            'scale': 1,
+        }
+        setimageData(img)
+
     }
-    let imageData = {
-        'imageUrl': doctorData['imageUrl'],
-        'width': 250,
-        'height': 250,
-        'scale': 1,
-    }
+    useEffect(  ()  => {
+        fetchData()
+    }, [])
+
+    
     let localData = [
         {
             Id: 1,
@@ -113,15 +124,18 @@ const Calendar = () => {
                         </Col>
                         <Col>
                             <div>
-                                <h4>ID: {id}</h4>
+                                <h4>ID</h4>
+                                <p>{id}</p>
                                 <h4>Name</h4>
-                                <p>{doctorData.name}</p>
-                                <h4>Speciality</h4>
-                                <p>{doctorData.speciality}</p>
-                                <h4>Work address</h4>
-                                <p>{doctorData.address}</p>
+                                <p>{doctorData.username}</p>
+                                <h4>Age</h4>
+                                <p>{doctorData.age}</p>
+                                <h4>Department</h4>
+                                <p>{doctorData.department}</p>
                                 <h4>Contact</h4>
                                 <p>{doctorData.email}</p>
+                                <h4>Description</h4>
+                                <p>{doctorData.description}</p>
                             </div>
                         </Col>
                     </Row>
@@ -130,7 +144,7 @@ const Calendar = () => {
             <div className="doctorCalendar" style={{marginBottom:'auto', marginLeft:50, marginRight:50, marginTop:100}}>
                 <ScheduleComponent currentView='Week' selectedDate={new Date(2021, 11, 29)}
                     eventSettings={{dataSource: localData}}
-                    views={['Day', 'Week', 'Month', 'TimelineDay', 'TimelineWeek']}
+                    views={['Day', 'Week', 'Month']}
                     editorTemplate={editorWindowTemplate.bind(this)}
                 >
                    <Inject services={[Day, Week, Month, Agenda]} />
@@ -141,3 +155,23 @@ const Calendar = () => {
     )
 }
 export default Calendar
+
+
+// const body = {
+//     "id": id
+// }
+// axios.post('/api/doctors/detail', body)
+// .then(function (response) {
+//     setdoctorData(response['data']['data']);
+//     console.log(response['data']['data'])
+//     const img = {
+//         'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
+//         'width': 250,
+//         'height': 250,
+//         'scale': 1,
+//     }
+//     setimageData(img)
+
+// }).catch(function (error) {
+//     console.log(error);
+// });
