@@ -8,12 +8,12 @@ const bcrypt = require('bcryptjs')
 
 PatientController.login = async (req, res, next) => {
     const {username, password} = req.body
-    const user = await PatientModel.findOne({username}).lean()
+    const user = await PatientModel.findOne({username})
     if (!user){
         return res.json({status: 'error', error: 'Invalid username'})
     }
     if(await bcrypt.compare(password, user.password)){
-        return res.json({status: 'ok'})
+        return res.json({status: 'ok', user: user})
     }
     return res.json({status:'error', error: 'Password incorrect'})
 }

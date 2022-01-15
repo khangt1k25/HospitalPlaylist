@@ -1,6 +1,18 @@
 import Row from './Row';
+import { useEffect, useState } from "react";
+import { getListDoctor } from '../services/admin';
 
-const Craiglist = () => {
+export default function Craiglist() {
+    const [doctor, setDoctor] = useState();
+    useEffect(() => {
+        const getData = async() => {
+            const req = await getListDoctor();
+            setDoctor(req);
+        }
+        getData()
+    },[]);
+    
+    console.log(doctor)
     return (
         <div className='Craiglist' style={{'marginBottom': 100}}>
             <Row Speciality='Healthcare'/>
@@ -14,4 +26,3 @@ const Craiglist = () => {
         </div>
     )
 }
-export default Craiglist;
