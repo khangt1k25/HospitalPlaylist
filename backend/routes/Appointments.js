@@ -41,4 +41,8 @@ appointmentRoute.post(
     asyncWrapper(appointmentController.getListAppointment)
 )
 
+appointmentRoute.post(
+    '/getByStatus',
+    asyncWrapper(appointmentController.getByStatus)
+)
 module.exports = appointmentRoute

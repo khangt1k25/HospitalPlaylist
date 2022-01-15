@@ -126,6 +126,25 @@ appointmentsController.aprrove = async (req, res) => {
     }
 }
 
+appointmentsController.getByStatus = async (req, res) => {
+    const app_status = req.body.status
+    try{
+        if (app_status == "all"){
+            appointment_list = await AppointmentModel.find({})
+        }
+        else{
+            appointment_list = await AppointmentModel.find({status: app_status})
+        }
+        if (appointment_list == null){
+            return res.status(httpStatus.NOT_FOUND).json({message: "appointment not found"})
+        }
+        return res.status(httpStatus.OK).json({data: appointment_list})    
+    }
+    catch (e){
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
+    }
+}
+
 appointmentsController.getListAppointment = async (req, res, next) => {
     const {year} = req.body
     AppointmentModel.find({}, (error, appointments) => {
