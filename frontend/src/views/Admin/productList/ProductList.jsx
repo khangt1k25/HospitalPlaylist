@@ -10,17 +10,18 @@ export default function UserList() {
     const req2 = await getListDoctor();
 
     var data_doctor = [];
-    console.log(req2);
-    // for (const [key, value] of Object.entries(req2)) {
-    //     data_doctor.concat(value);
-    // }
-    // setData(data_doctor);
+    // console.log(req2);
+    for (const [key, value] of Object.entries(req2)) {
+        data_doctor = data_doctor.concat(value);
+    }
+    console.log(data_doctor);
+    setData(data_doctor);
     },[]);
   
   console.log(data);
   return (
     <div className='container'>
-      <div>
+      {/* <div>
         <form action="">
           <label htmlFor="">
             Department:
@@ -28,7 +29,7 @@ export default function UserList() {
           </label>
           <input type="submit" value="Submit"/>
         </form>
-      </div>
+      </div> */}
 
 
       <h1 id='heading1'>DOCTOR LIST</h1>
@@ -52,7 +53,7 @@ export default function UserList() {
               <td>{user.email}</td>
               <td>{user.age}</td>
               <td>{user.department}</td>
-              <td>{user.desctiption} </td>
+              <td>{user.description} </td>
             </tr>
             )}
         </tbody>
