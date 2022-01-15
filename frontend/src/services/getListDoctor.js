@@ -2,7 +2,7 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8000"
 
-export const getListPatient = (body) => {
+export const getDoctorList = (body) => {
     
     axios.get('/api/admin/getDoctorList', body)
         .then(function (response) {
@@ -13,3 +13,5 @@ export const getListPatient = (body) => {
         console.log(error);
     });
 }
+
+

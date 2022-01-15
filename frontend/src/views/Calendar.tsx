@@ -8,6 +8,7 @@ import { Container, Row, Col,Card} from 'react-bootstrap';
 import MyAvatar from './MyAvatar';
 import axios from "axios";
 import { detailDoctor } from '../services/doctor';
+import { getAppointmentOfDoctor } from '../services/getAppointment';
 
 
 L10n.load(
@@ -28,6 +29,8 @@ const Calendar = () => {
     const id = useParams()['id']
     const [doctorData, setdoctorData] = useState(Object)
     const [imageData, setimageData] = useState(Object)
+    const [appointmentData, setappointmentData] = useState(Object)
+
     const fetchData = async () => {
         const body = {
             "id": id
@@ -41,36 +44,44 @@ const Calendar = () => {
             'scale': 1,
         }
         setimageData(img)
+        const apbody = {
+            "doctorId": id,
+            "status": "Pending",
+        }
+        
+        var apresponse = await getAppointmentOfDoctor(apbody)
+        console.log(apresponse['data'])
+        setappointmentData(apresponse['data'])
 
     }
     useEffect(  ()  => {
         fetchData()
     }, [])
-
     
-    let localData = [
-        {
-            Id: 1,
-            Subject: 'John',
-            EventType: 'Requested',
-            StartTime: new Date(2021, 11, 29, 6, 0),
-            EndTime: new Date(2021, 11, 29, 7 ,0)
-        },
-        {
-            Id: 2,
-            Subject: 'Steve',
-            EventType: 'Confirmed',
-            StartTime: new Date(2021, 11, 30, 8, 0),
-            EndTime: new Date(2021, 11, 30, 10 ,0)
-        },
-        {
-            Id: 1,
-            Subject: 'James',
-            EventType: 'Confirmed',
-            StartTime: new Date(2021, 11, 30, 10, 0),
-            EndTime: new Date(2021, 11, 30, 11, 0)
-        }
-    ]
+    
+    // let localData = [
+    //     {
+    //         Id: 1,
+    //         Subject: 'John',
+    //         EventType: 'Requested',
+    //         StartTime: new Date(2021, 11, 29, 6, 0),
+    //         EndTime: new Date(2021, 11, 29, 7 ,0)
+    //     },
+    //     {
+    //         Id: 2,
+    //         Subject: 'Steve',
+    //         EventType: 'Confirmed',
+    //         StartTime: new Date(2021, 11, 30, 8, 0),
+    //         EndTime: new Date(2021, 11, 30, 10 ,0)
+    //     },
+    //     {
+    //         Id: 1,
+    //         Subject: 'James',
+    //         EventType: 'Confirmed',
+    //         StartTime: new Date(2021, 11, 30, 10, 0),
+    //         EndTime: new Date(2021, 11, 30, 11, 0)
+    //     }
+    // ]
     let editorWindowTemplate = (props: any) => {
         return(
             <table className='custom-event-editor' style={{width: '100%'}}>
@@ -107,7 +118,7 @@ const Calendar = () => {
                             <textarea id='Description' className='e-field e-input' name='Description' rows={3} cols={50} style={{width: '100%', height:'60px', resize:'vertical'}}></textarea>
                         </td>
                     </tr>
-                   
+
                 </tbody>
             </table>
         )
@@ -143,7 +154,7 @@ const Calendar = () => {
             </div>
             <div className="doctorCalendar" style={{marginBottom:'auto', marginLeft:50, marginRight:50, marginTop:100}}>
                 <ScheduleComponent currentView='Week' selectedDate={new Date(2021, 11, 29)}
-                    eventSettings={{dataSource: localData}}
+                    eventSettings={{dataSource: appointmentData}}
                     views={['Day', 'Week', 'Month']}
                     editorTemplate={editorWindowTemplate.bind(this)}
                 >
