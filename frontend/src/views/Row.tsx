@@ -4,18 +4,19 @@ import Slider from "react-slick";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getListDoctorByDepartment } from "../services/doctor";
 type Props = {
   Speciality: string;
 };
 type Doctor = {
-    id: string,
-    name: string,
+    _id: string,
+    username: string,
 }
-
 
 const Row = ({Speciality}: Props) => {
     let navigate = useNavigate()
-    const [doctors, setdoctors] = useState([])
+    const [doctors, setdoctors] = useState<any[]>([])
+    const default_image = 'https://transcode-v2.app.engoo.com/image/fetch/f_auto,c_lfill,h_128,dpr_3/https://assets.app.engoo.com/images/9rGg7Q0FAP8LdGZyM2kIcd1LXqWBVKFdvfgdCTGnYQU.jpeg'
     // const doctors = [
     //     {
     //         id: "1",
@@ -74,40 +75,40 @@ const Row = ({Speciality}: Props) => {
         navigate('/calendar/'+doctorid)
     }   
     useEffect(() => {
-        axios.get('/api/doctors/getList')
-        .then(function (response) {
-            console.log(response['data']['Dentist'])
-            setdoctors(response['data']['Dentist'])
-        }).catch(function (error) {
-            console.log(error);
-        });
+        const getData = async() => {
+            let body = 
+            {
+                "department": Speciality
+            }
+            const req = await getListDoctorByDepartment(body);
+            setdoctors(req['doctors']);
+            console.log(doctors)
+        }
+        getData()
     }, [])
     return (
-    //     <div className='row-speciality' style={{marginTop:100, marginLeft:50}}>
-    //         <h2>{Speciality}</h2>
-    //             <Slider {...settings}>
-    //                 {doctors.map((doctor, i) => {
-    //                 return (
-                        
-    //                     <div key={doctor.id} className={"Row"}>
-    //                     <Button key= {doctor.id} onClick={()=>{handleClick(doctor.id)}}>
-    //                         <p>{doctor.name}</p>
-    //                         <img
-    //                             key={doctor.id}
-    //                             className={"Row-posters-image"}
-    //                             src={doctor.image}
-    //                             alt={doctor.name}
-    //                         />
-    //                     </Button>
-    //                     </div>
-    //                 )
-    //                 }
-    //                 )}
-    //         </Slider>
-    //   </div>
-    <div>
-        hel
-    </div>
+        <div className='row-speciality' style={{marginTop:100, marginLeft:50, marginBottom:50}}>
+            <h2>{Speciality}</h2>
+                <Slider {...settings}>
+                    {doctors.map((doctor) => {
+                        return (
+                            
+                            <div key={doctor._id} className={"Row"}>
+                            <Button key= {doctor._id} onClick={()=>{handleClick(doctor._id)}}>
+                                <p>{doctor.username}</p>
+                                <img
+                                    key={doctor._id}
+                                    className={"Row-posters-image"}
+                                    src={default_image}
+                                    alt={doctor.username}
+                                />
+                            </Button>
+                            </div>
+                        )
+                    }
+                    )}
+            </Slider>
+      </div>
     );
 };
 

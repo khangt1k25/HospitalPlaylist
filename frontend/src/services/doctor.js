@@ -21,3 +21,9 @@ export const detailDoctor = async (body) => {
     .catch(error => error)
 }
 
+export const getListDoctorByDepartment = async (body) => {
+    return await  axios.post('/api/doctors/getListByDepartment', body)
+    .then((response) => response.data)
+    .catch(error => error)
+}
+
