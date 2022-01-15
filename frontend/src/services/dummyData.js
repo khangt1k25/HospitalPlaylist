@@ -49,6 +49,56 @@ export const userData = [
     },
   ];
 
+  export const userTestData = [
+    {
+      name: "Jan",
+      "Appointments": 5,
+    },
+    {
+      name: "Feb",
+      "Appointments": 10,
+    },
+    {
+      name: "Mar",
+      "Appointments": 4,
+    },
+    {
+      name: "Apr",
+      "Appointments": 5,
+    },
+    {
+      name: "May",
+      "Appointments": 9,
+    },
+    {
+      name: "Jun",
+      "Appointments": 15,
+    },
+    {
+      name: "Jul",
+      "Appointments": 20,
+    },
+    {
+      name: "Agu",
+      "Appointments": 16,
+    },
+    {
+      name: "Sep",
+      "Appointments": 22,
+    },
+    {
+      name: "Oct",
+      "Appointments": 12,
+    },
+    {
+      name: "Nov",
+      "Appointments": 135,
+    },
+    {
+      name: "Dec",
+      "Appointments": 15,
+    },
+  ];
   export const productData = [
     {
       name: "Jan",
