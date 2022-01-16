@@ -11,7 +11,6 @@ export const loginPatient = async (body) => {
     return await axios.post('/api/patient/login', body)
                 .then(response => response.data).catch(error => error)
 }
-
 export const getUserInfo = async (body) => {
     var req = await axios.post('/api/patient/detail', body);
     return req.data;
