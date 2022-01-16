@@ -32,7 +32,7 @@ doctorsRoutes.post(
 )
 
 doctorsRoutes.post(
-    '/detete',
+    '/delete',
     asyncWrapper(doctorsController.deleteDoctor)
 )
 

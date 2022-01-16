@@ -59,7 +59,12 @@ appointmentsController.getAppointmentOfDoctor = async (req, res) => {
     doctorId = req.body.doctorId
     app_status = req.body.status
     try {
-        app_list = await AppointmentModel.find({doctorId: doctorId, status: app_status})
+        if (app_status == "all"){
+            app_list = await AppointmentModel.find({doctorId: doctorId})
+        }
+        else{
+            app_list = await AppointmentModel.find({doctorId: doctorId, status: app_status})
+        }
         if (app_list == null){
             res.status(httpStatus.NOT_FOUND).json({message: "appointment not found."})
         }
