@@ -11,3 +11,8 @@ export const getAppointmentOfDoctor = async (body) => {
 
 
 
+export const createAppointment = async (body) => {
+    return await axios.post('/api/appointments/create', body)
+    .then((response) => response.data)
+    .catch(error => error)
+}
