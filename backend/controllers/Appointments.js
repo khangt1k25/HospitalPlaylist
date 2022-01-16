@@ -22,13 +22,9 @@ appointmentsController.create = async (req, res, next) => {
         let user = await UserModel.findById(userId)
         const saveAppointment = await appointment.save()
         console.log("Create appointment successfully")
+        console.log(saveAppointment)
         return res.status(httpStatus.CREATED).json({
-            data :{
-                id: saveAppointment._id,
-                start: saveAppointment.start,
-                end: saveAppointment.end,
-                userId: user._id
-            }
+            data :saveAppointment
         })
     }
     catch(e){
@@ -175,6 +171,31 @@ appointmentsController.getListAppointment = async (req, res, next) => {
         })
         return res.status(httpStatus.OK).json(countMonth)
     })
+}
+
+appointmentsController.getAppointmentOfUserNow = async (req, res, next) => {
+    const userId = req.body.userId
+    var start = new Date()
+    start.setUTCHours(0,0,0,0)
+    var end = new Date()
+    end.setUTCHours(23, 59, 59, 0)
+    try{
+        appointments = await AppointmentModel.find({
+            start: {
+                $gte: start,
+                $lt: end
+            }
+        })
+        res.status(httpStatus.OK).json({
+            data: appointments
+        })
+    }
+    catch(e){
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            message: e.message
+        })
+    }
+    return res.status(httpStatus.OK).json({message: "OK"})
 }
 
 module.exports = appointmentsController
