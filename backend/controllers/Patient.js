@@ -95,7 +95,7 @@ PatientController.register = async (req, res, next) => {
 // }
 
 PatientController.detail = async (req, res) => {
-  const {userid} = req.body
+  const userid = req.body.id
   console.log(userid)
   try{
     let user = await PatientModel.findById(userid)
@@ -103,10 +103,7 @@ PatientController.detail = async (req, res) => {
       return res.status(httpStatus.NOT_FOUND).json({message: "USER not found"})
     }
     return res.status(httpStatus.OK).json({
-      username: user.username,
-      email: user.email,
-      age: user.age,
-      gender: user.gender
+      data: user
     })
   }
   catch(e){

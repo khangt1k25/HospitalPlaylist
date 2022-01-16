@@ -21,6 +21,8 @@ const SignIn = () => {
         if (role == 'Patient'){
             var data = await loginPatient(body)
             console.log(data)
+            localStorage.setItem('id', data.user._id)
+            localStorage.setItem('is_doctor', 'false')
             
             if (data.status=='ok'){
                 navigate('/userprofile')
@@ -31,6 +33,8 @@ const SignIn = () => {
             
         }else if (role == 'Doctor'){
             var data = await loginDoctor(body)
+            localStorage.setItem('id', data.user._id)
+            localStorage.setItem('is_doctor', 'true')
             
             if (data.status=='ok'){
                 navigate('/userprofile')
