@@ -87,12 +87,13 @@ appointmentsController.getAppointmentOfUser = async (req, res) => {
         else{
             app_list = await AppointmentModel.find({userId: userId, status: app_status})
         if (app_list == null){
-            res.status(httpStatus.NOT_FOUND).json({message: "appointment not found."})
+            return res.status(httpStatus.NOT_FOUND).json({message: "appointment not found."})
         }
-        else res.status(httpStatus.OK).json({
+        else{ return res.status(httpStatus.OK).json({
             data: app_list
         })
     }
+}
     }
     catch(e){
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
