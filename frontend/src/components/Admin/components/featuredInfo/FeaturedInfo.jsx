@@ -21,7 +21,7 @@ export default class FeaturedInfo extends Component {
    // let navigate = useNavigate();
     return (
       <div className="featured">
-        <div className="featuredItem" onClick={()=>{this.props.navigateUser('/user')}}>
+        <div className="featuredItem" onClick={()=>{this.props.navigateUser('/admin/user')}}>
           <span className="featuredTitle">PATIENTS</span>
           <div className="featuredMoneyContainer">
             <span className="featuredMoney">{this.props.user}</span>
@@ -32,7 +32,7 @@ export default class FeaturedInfo extends Component {
           <span className="featuredSub">Number of patients</span>
         </div>
   
-        <div className="featuredItem" onClick={()=>{this.props.navigateUser('/doctor')}}>
+        <div className="featuredItem" onClick={()=>{this.props.navigateUser('/admin/doctor')}}>
           <span className="featuredTitle">DOCTORS</span>
           <div className="featuredMoneyContainer">
             <span className="featuredMoney">{this.props.doctor}</span>
@@ -46,7 +46,7 @@ export default class FeaturedInfo extends Component {
         <div className="featuredItem">
           <span className="featuredTitle">PENDING APPOINTMENT</span>
           <div className="featuredMoneyContainer">
-            <span className="featuredMoney">xxx</span>
+            <span className="featuredMoney">{this.props.pending}</span>
             {/* <span className="featuredMoneyRate">
               +2.4 
             </span> */}

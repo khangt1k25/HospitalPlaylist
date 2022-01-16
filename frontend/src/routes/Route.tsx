@@ -44,10 +44,10 @@ const AppRouter = () => {
             <div className='container'>
                 {/* <Sidebar></Sidebar> */}
                 <Routes>
-                    <Route path='/admin' element={<DashBoard />}></Route>
-                    <Route path='/user' element={<UserList />}></Route> 
-                    <Route path='/newUser' element={<NewUser/>}></Route>
-                    <Route path='/doctor' element={<Doctor></Doctor>}></Route>
+                    <Route path='/admin' element={localStorage.getItem('accessToken') == 'ok' ? <DashBoard /> : <SignIn/>}></Route>
+                    <Route path='/admin/user' element={localStorage.getItem('accessToken') == 'ok' ? <UserList /> : <SignIn/>}></Route> 
+                    <Route path='/admin/newUser' element={<NewUser/>}></Route>
+                    <Route path='/admin/doctor' element={localStorage.getItem('accessToken') == 'ok' ? <Doctor /> : <SignIn/>}></Route>
                 </Routes>
             </div>
 
