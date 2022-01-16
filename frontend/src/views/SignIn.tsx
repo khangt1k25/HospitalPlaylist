@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from 'react';
 import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import '../css/sign.css'
+import { loginAdmin } from '../services/admin';
 import { loginDoctor } from '../services/doctor';
 import { loginPatient } from '../services/patient';
 
@@ -20,11 +21,12 @@ const SignIn = () => {
         } 
         if (role == 'Patient'){
             var data = await loginPatient(body)
-            console.log(data)
-            localStorage.setItem('id', data.user._id)
-            localStorage.setItem('is_doctor', 'false')
+            
             
             if (data.status=='ok'){
+                console.log(data)
+                localStorage.setItem('id', data.user._id)
+                localStorage.setItem('is_doctor', 'false')
                 navigate('/userprofile')
             }else{
                 alert("Login patient Fail")
@@ -33,18 +35,23 @@ const SignIn = () => {
             
         }else if (role == 'Doctor'){
             var data = await loginDoctor(body)
-            localStorage.setItem('id', data.user._id)
-            localStorage.setItem('is_doctor', 'true')
-            
-            if (data.status=='ok'){
-                navigate('/userprofile')
+         
+            console.log(data)
+            if (data.status=='ok'){   
+                console.log(data)
+                localStorage.setItem('id', data.user._id)
+                localStorage.setItem('is_doctor', 'true')
+                navigate('/calendar/'+ data.user._id)
             }else{
                 alert("Login doctor Fail")
                 window.location.reload()
             }
         }else{
-            console.log("Admin here")
+            var data = await loginAdmin(body)
+            console.log("Admin here");
             localStorage.setItem('accessTokenAdmin', 'ok');
+            navigate('/admin')
+    
         }
         
     }
