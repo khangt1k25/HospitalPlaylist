@@ -5,21 +5,27 @@ import MyAvatar from './MyAvatar'
 import { getUserInfo } from '../services/patient'
 import { detailDoctor } from '../services/doctor'
 import { json } from "stream/consumers"
+
 const Header = () => {
     const [data, setData] = useState(Object)
     var userId = localStorage.getItem('id')
+    var is_doctor = localStorage.getItem('is_doctor')
     let navigate = useNavigate()
     const handClick = () => {
-        console.log("click")
-        navigate('/userprofile')
+        console.log(is_doctor)
+        if (is_doctor=='true'){
+            navigate('/calendar/'+ userId)
+        } else{
+            navigate('/userprofile')
+        }
     }
     const signout = () => {
         console.log('signout')
         localStorage.removeItem('accessToken')
+        localStorage.removeItem('is_doctor')
+        localStorage.removeItem('id')
         navigate('/signin')
     }
-    
-    
     const fetchData = async () => {
         const body = {
             "id": userId

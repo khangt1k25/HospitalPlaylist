@@ -137,14 +137,19 @@ doctorsController.acceptAppointment = async (req, res) => {
 doctorsController.deleteDoctor = async (req, res) => {
     const doctorId = req.body.id 
     console.log(doctorId)
-    DoctorModel.findOneAndDelete({_id: doctorId}, function(err){
-        if(err){
-            console.log("Can't delete")
-            return res.status(httpStatus.NOT_ACCEPTABLE).json({message : error})
-        }
+    try{
+        DoctorModel.findOneAndDelete({_id: doctorId}, function(err){
+            if (err){
+                res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
+            }
+        })
+        await AppointmentModel.deleteMany({doctorId: doctorId})
         console.log("Delete success")
         return res.status(httpStatus.OK).json({message : "OK"})
-    })
+    }
+    catch(e){
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})
+    }
 }
 
 module.exports = doctorsController

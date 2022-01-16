@@ -8,9 +8,12 @@ import { getAppointmentOfDoctor, createAppointment, approveAppointment } from '.
 import moment from 'moment';
 
 const Calendar = () => {
-
+    
+    
     const id = useParams()['id']
     const user_id = localStorage['id']
+    const is_doctor = localStorage['is_doctor']
+
     const [doctorData, setdoctorData] = useState(Object)
     const [imageData, setimageData] = useState(Object)
     const [appointmentData, setappointmentData] = useState<any[]>([])
@@ -19,7 +22,8 @@ const Calendar = () => {
     const [date, setdate] = useState('')
     const [starttime, setstarttime] = useState('')
     const [endtime, setendtime] = useState('')
-    
+    const [owner, setowner] = useState(false)
+
     const create = async (e: SyntheticEvent) => {
         e.preventDefault(); 
         var start = new Date(date + ' ' + starttime);
@@ -43,7 +47,6 @@ const Calendar = () => {
             "appointmentId": val
         }
         var response = await approveAppointment(body)
-        console.log(response)
         window.location.reload()
     }
     useEffect(  ()  => {
@@ -66,6 +69,12 @@ const Calendar = () => {
             }
             var apresponse = await getAppointmentOfDoctor(apbody)
             setappointmentData(apresponse['data'])
+
+            const currentid = localStorage.getItem('id')
+            if(currentid == id){
+                setowner(true)
+            }
+
         }
         fetchData()
     }, [])
@@ -111,7 +120,7 @@ const Calendar = () => {
                                     <th>End</th>
                                     <th>Description</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    {owner && <th>Action</th>}
                                 </tr>
                                 {appointmentData.map(
                                     (appoint)=>{
@@ -123,9 +132,12 @@ const Calendar = () => {
                                                 <td>{moment(appoint.end).format("YYYY/MM/DD kk:mm:ss")}</td>
                                                 <td>{appoint.userDescription}</td>
                                                 {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}     
-                                                <td> 
+                                                {
+                                                    owner && <td> 
                                                     {appoint.status=='Pending'?<Button variant="warning" onClick={approve} data-value={appoint._id}>Approve</Button>:<Button variant="success" disabled>Waited</Button>}
                                                 </td>
+                                                }
+                                                
                                             </tr>
                                         )
                                     }
@@ -133,7 +145,8 @@ const Calendar = () => {
                             </tbody>
                 </table>
             </div>
-            <div className='requestappointment' style={{marginBottom:100, marginLeft:200, marginRight:200, marginTop:100}}>
+            {
+             !(is_doctor=='true') &&  <div className='requestappointment' style={{marginBottom:100, marginLeft:200, marginRight:200, marginTop:100}}>
                 <h1>Create appointment</h1>
                 <Form className='requestform' onSubmit={create}>
                     <Form.Group className="mb-3" controlId="formDate">
@@ -163,7 +176,7 @@ const Calendar = () => {
                     </Button>
                 </Form>
             </div>
-        
+            }
         </div>
       
     )

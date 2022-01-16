@@ -136,16 +136,15 @@ PatientController.getList = async (req, res) => {
 }
 
 PatientController.delete = async (req, res) => {
-    const doctorId = req.body.doctorId
+    const userId = req.body.userId
     try{
-        DoctorModel.findByIdAndDelete(doctorId, async function (err, docs){
+        DoctorModel.findByIdAndDelete(userId, async function (err, docs){
             if (err){
                 return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({messeage: e.message})
             }
-            else{
-                return res.status(httpStatus.OK).json({Deleted: docs})
-            }
         })
+        await AppointmentModel.deleteMany({userId: userId})
+        return res.status(httpStatus.OK).json({message: "OK"})
     }
     catch(e){
         return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({message: e.message})

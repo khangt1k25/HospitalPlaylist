@@ -48,7 +48,7 @@ const SignUp = () => {
         navigate('/signin')
     }
     return (
-        <div className='signup'>
+        <div className='signup' style={{marginBottom: 100}}>
                         <h3>Be a member</h3>
                         <Form onSubmit={register}>
                             <Form.Group as={Row} className="mb-3" controlId="formPlaintextName">
