@@ -5,8 +5,7 @@ import MyAvatar from './MyAvatar';
 import axios from "axios";
 import { detailDoctor } from '../services/doctor';
 import { getAppointmentOfDoctor, createAppointment, approveAppointment } from '../services/getAppointment';
-
-
+import moment from 'moment';
 
 const Calendar = () => {
 
@@ -34,19 +33,19 @@ const Calendar = () => {
             "userDescription": description
         }
         var response = await createAppointment(body)
-        console.log(response)
+        window.location.reload()
         
     }
     const approve = async (e: SyntheticEvent) => {
-        e.preventDefault(); 
+        e.preventDefault()
+        const val = e.currentTarget.getAttribute("data-value");
         const body = {
-            "appointmentId": "61e1a591a1a4debf23638f36" //test this: wrong appointment
+            "appointmentId": val
         }
         var response = await approveAppointment(body)
         console.log(response)
-        
+        window.location.reload()
     }
-    
     useEffect(  ()  => {
         const fetchData = async () => {
             const body = {
@@ -65,23 +64,15 @@ const Calendar = () => {
                 "doctorId": id,
                 "status": "all",
             }
-            
             var apresponse = await getAppointmentOfDoctor(apbody)
-            console.log(apresponse['data'])
             setappointmentData(apresponse['data'])
-            console.log(appointmentData)
         }
         fetchData()
     }, [])
 
-    
-    const deleteRow = () => {
 
-    }
-    
     return (
         <div className="calendar">
-            <Button onClick={approve}>Test approve for i want this</Button>
             <div className="doctorInfor" style={{marginTop:50, marginLeft:50}}>
                 <Container>
                     <Row style={{width:'100%'}}>
@@ -109,7 +100,7 @@ const Calendar = () => {
                     </Row>
                 </Container>
             </div>
-            <div className="doctorCalendar" style={{marginBottom:100, marginLeft:50, marginRight:50, marginTop:100}}>
+            <div className="doctorCalendar" style={{marginBottom:100, marginLeft:100, marginRight:100, marginTop:100}}>
                 <h1>Doctor Appointment</h1>
                 <table className="appointmentTable">
                             <tbody>
@@ -118,9 +109,9 @@ const Calendar = () => {
                                     <th>UserID</th>
                                     <th>Start</th>
                                     <th>End</th>
-                                    <th>Status</th>
-                                    <th>StatusStr</th>
                                     <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                                 {appointmentData.map(
                                     (appoint)=>{
@@ -128,11 +119,13 @@ const Calendar = () => {
                                             <tr key={appoint._id}>
                                                 <td>{appoint._id}</td>
                                                 <td>{appoint.userId}</td>
-                                                <td>{appoint.start}</td>
-                                                <td>{appoint.end}</td>
-                                                {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
-                                                <td>{appoint.status}</td>
+                                                <td>{moment(appoint.start).format("YYYY/MM/DD kk:mm:ss")}</td>
+                                                <td>{moment(appoint.end).format("YYYY/MM/DD kk:mm:ss")}</td>
                                                 <td>{appoint.userDescription}</td>
+                                                {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}     
+                                                <td> 
+                                                    {appoint.status=='Pending'?<Button variant="warning" onClick={approve} data-value={appoint._id}>Approve</Button>:<Button variant="success" disabled>Waited</Button>}
+                                                </td>
                                             </tr>
                                         )
                                     }
@@ -140,14 +133,13 @@ const Calendar = () => {
                             </tbody>
                 </table>
             </div>
-            <div className='requestappointment' style={{marginBottom:100, marginLeft:50, marginRight:50, marginTop:100}}>
+            <div className='requestappointment' style={{marginBottom:100, marginLeft:200, marginRight:200, marginTop:100}}>
                 <h1>Create appointment</h1>
                 <Form className='requestform' onSubmit={create}>
                     <Form.Group className="mb-3" controlId="formDate">
                         <Form.Label>Date</Form.Label>
                         <Form.Control type="date" name="date" required onChange={e => setdate(e.target.value)}/>
                     </Form.Group>
-
                     <Form.Group className="mb-3" controlId="formTime">
                         <Row>
                             <Col>
@@ -171,6 +163,7 @@ const Calendar = () => {
                     </Button>
                 </Form>
             </div>
+        
         </div>
       
     )
