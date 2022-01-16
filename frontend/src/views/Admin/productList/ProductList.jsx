@@ -1,7 +1,7 @@
-import React, {useReducer, useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import './productList.css';
 import { getListDoctor, deleteDoctorById } from '../../../services/admin';
-import { useHistory, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 export default function UserList() {
   let [data, setData] = useState();
@@ -24,14 +24,11 @@ export default function UserList() {
 
 
   },[]);
-  // function deleteDoctor(id) {
-  //   const data = JSON.stringify({"id": id});
-  //   console.log(data); 
-  //   };
+
   const deleteDoctor = async(id) => {
     const data = JSON.stringify({"id": id});
     const req3 = await deleteDoctorById(data);
-    console.log(req3);
+    console.log(req3.data);
   }
   //console.log(data);
 
@@ -44,7 +41,7 @@ export default function UserList() {
               Department:
               <input type="text" name='department' />
             </label>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Apply"/>
           </form>
         </div>
       {/* <button onClick={() => {navigate.goBack}}>Back</button> */}
@@ -65,7 +62,7 @@ export default function UserList() {
 
           <tbody>
             {data && data.map(user => 
-              <tr>
+              <tr key={user.doctorId}>
                 <td>{user.doctorId}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
@@ -78,9 +75,6 @@ export default function UserList() {
                       // console.log('clicked');
 
                       const index = data.indexOf(user);
-                      //console.log(data);
-                      //data.splice(index, 1);
-                      //delete data[index];
                       var tmp = [...data];
                       tmp.splice(index, 1);
                      
