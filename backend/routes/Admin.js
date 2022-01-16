@@ -4,6 +4,16 @@ const {asyncWrapper} = require("../utils/asyncWrapper");
 
 const adminRoutes = express.Router()
 
+adminRoutes.post(
+    '/login',
+    asyncWrapper(adminController.login)
+)
+
+adminRoutes.post(
+    '/register',
+    asyncWrapper(adminController.register)
+)
+
 adminRoutes.get(
     "/getuserlist",
     asyncWrapper(adminController.getUserList)
