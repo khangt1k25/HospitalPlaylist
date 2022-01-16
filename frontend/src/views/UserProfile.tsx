@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row,Col, Form, Button, Spinner } from 'react-bootstrap';
 import "../css/appointmentTable.css";
+import { getAppointmentOfUser } from '../services/getAppointment';
 import { getUserInfo } from '../services/patient';
+
 import MyAvatar from './MyAvatar';
 
 
 const UserProfile = () => {
-
     const [data, setdata] = useState(Object)
-
+    const [appointmentData, setappointmentData] = useState<any[]>([])
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
-    const userId = localStorage.getItem('id')
+    const userId = localStorage.getItem('id');
 
     const localData = {
         'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
@@ -28,6 +29,14 @@ const UserProfile = () => {
         setdata(response['data'])
         setName(response['data']['username'])
         setEmail(response['data']['email'])
+
+        const abody = {
+            "userId": userId,
+            "status": "all"
+        }
+        var aresponse = await getAppointmentOfUser(abody)
+        console.log(aresponse['data'])
+        setappointmentData(aresponse['data'])
     }
     useEffect(() => {
         fetchData()  
@@ -89,18 +98,20 @@ const UserProfile = () => {
                         <tbody>
                             <tr>
                                 <th>ID</th>
-                                <th>Date</th>
-                                <th>Doctor</th>
+                                <th>Doctor ID</th>
+                                <th>Start</th>
+                                <th>End</th>
                                 <th>Status</th>
                             </tr>
-                            {appointments.map(
+                            {appointmentData.map(
                                 (appoint)=>{
                                     return (
-                                        <tr key={appoint.id}>
-                                            <td>{appoint.id}</td>
-                                            <td>{appoint.date}</td>
-                                            <td>{appoint.doctor}</td>
-                                            {appoint.status=='ended'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
+                                        <tr key={appoint._id}>
+                                            <td>{appoint._id}</td>
+                                            <td>{appoint.doctorId}</td>
+                                            <td>{appoint.start}</td>
+                                            <td>{appoint.end}</td>
+                                            {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
                                         </tr>
                                     )
                                 }
