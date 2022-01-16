@@ -44,6 +44,7 @@ const SignIn = () => {
             }
         }else{
             console.log("Admin here")
+            localStorage.setItem('accessTokenAdmin', 'ok');
         }
         
     }

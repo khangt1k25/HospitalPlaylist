@@ -19,3 +19,13 @@ export const getCountAppointmentByYear = async (body) => {
     var req = await axios.post('/api/appointments/getList', body);
     return req.data;
 }
+
+export const getCountAppointmentPending = async (body) => {
+    var req = await axios.post('/api/appointments/getByStatus', body);
+    return req.data;
+}
+
+export const deleteDoctorById = async (body) => {
+    var req = await axios.post('api/doctors/delete', body);
+    return req;
+}
