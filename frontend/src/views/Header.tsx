@@ -30,20 +30,12 @@ const Header = () => {
             var response = await getUserInfo(body)
         }
         setData(response['data']);
-        const img = {
-            'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
-            'width': 250,
-            'height': 250,
-            'scale': 1,
-        }
+        
     }
     useEffect(  ()  => {
         fetchData()
     }, [])
-    // var data1 = JSON.parse(JSON.stringify(data))
     console.log(data)
-    console.log(Object.keys(data))
-    // console.log(Object.keys(data))
     const localData = {
         'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
         'width': 70,
@@ -51,6 +43,10 @@ const Header = () => {
         'scale': 1,
         'userName': data['username']
     }
+
+
+    
+
     if (localStorage.getItem('accessToken') == 'ok') {
         return (
             <div>
