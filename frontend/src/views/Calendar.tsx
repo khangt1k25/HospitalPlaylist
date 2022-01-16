@@ -1,128 +1,76 @@
-import React, { useEffect, useState } from 'react';
-import {Inject, ScheduleComponent, Day, Week, WorkWeek, Month, Agenda, EventSettingsModel} from '@syncfusion/ej2-react-schedule';
-import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns';
-import { DateTimePickerComponent } from '@syncfusion/ej2-react-calendars';
-import {L10n} from '@syncfusion/ej2-base';
+import React, { useEffect, useState, SyntheticEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col,Card} from 'react-bootstrap';
+import { Container, Row, Col, Card, Spinner, Button, Form} from 'react-bootstrap';
 import MyAvatar from './MyAvatar';
 import axios from "axios";
 import { detailDoctor } from '../services/doctor';
-import { getAppointmentOfDoctor } from '../services/getAppointment';
+import { getAppointmentOfDoctor, createAppointment } from '../services/getAppointment';
 
 
-L10n.load(
-    {
-        'en-US': {
-            'schedule': {
-                'saveButton': 'Add',
-                'cancelButton': 'Cancel',
-                'deleteButton': 'Remove',
-                'newEvent': 'Add event'
-            }
-        }
-    }
-)
 
 const Calendar = () => {
 
     const id = useParams()['id']
     const [doctorData, setdoctorData] = useState(Object)
     const [imageData, setimageData] = useState(Object)
-    const [appointmentData, setappointmentData] = useState(Object)
+    const [appointmentData, setappointmentData] = useState<any[]>([])
 
-    const fetchData = async () => {
+    const [description, setdescription] = useState('')
+    const [date, setdate] = useState('')
+    const [starttime, setstarttime] = useState('')
+    const [endtime, setendtime] = useState('')
+    
+    const create = async (e: SyntheticEvent) => {
+        e.preventDefault(); 
+        // console.log(date)    
+        // console.log(starttime)
+        // console.log(endtime)
+        var start = new Date(date + ' ' + starttime);
+        var end = new Date(date + ' ' + endtime);
+
         const body = {
-            "id": id
-        }
-        var response = await detailDoctor(body)   
-        setdoctorData(response['data']);
-        const img = {
-            'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
-            'width': 250,
-            'height': 250,
-            'scale': 1,
-        }
-        setimageData(img)
-        const apbody = {
+            "start": start,
+            "end": end,
+            "userId": "61dedeed4541a44d035f36e1",
             "doctorId": id,
-            "status": "Pending",
+            "userDescription": description
         }
-        
-        var apresponse = await getAppointmentOfDoctor(apbody)
-        console.log(apresponse['data'])
-        setappointmentData(apresponse['data'])
+        var response = await createAppointment(body)
+        console.log(response)
 
     }
+    
+    
     useEffect(  ()  => {
+        const fetchData = async () => {
+            const body = {
+                "id": id
+            }
+            var response = await detailDoctor(body)   
+            setdoctorData(response['data']);
+            const img = {
+                'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
+                'width': 250,
+                'height': 250,
+                'scale': 1,
+            }
+            setimageData(img)
+            const apbody = {
+                "doctorId": id,
+                "status": "all",
+            }
+            
+            var apresponse = await getAppointmentOfDoctor(apbody)
+            console.log(apresponse['data'])
+            setappointmentData(apresponse['data'])
+            console.log(appointmentData)
+        }
         fetchData()
     }, [])
-    
-    
-    // let localData = [
-    //     {
-    //         Id: 1,
-    //         Subject: 'John',
-    //         EventType: 'Requested',
-    //         StartTime: new Date(2021, 11, 29, 6, 0),
-    //         EndTime: new Date(2021, 11, 29, 7 ,0)
-    //     },
-    //     {
-    //         Id: 2,
-    //         Subject: 'Steve',
-    //         EventType: 'Confirmed',
-    //         StartTime: new Date(2021, 11, 30, 8, 0),
-    //         EndTime: new Date(2021, 11, 30, 10 ,0)
-    //     },
-    //     {
-    //         Id: 1,
-    //         Subject: 'James',
-    //         EventType: 'Confirmed',
-    //         StartTime: new Date(2021, 11, 30, 10, 0),
-    //         EndTime: new Date(2021, 11, 30, 11, 0)
-    //     }
-    // ]
-    let editorWindowTemplate = (props: any) => {
-        return(
-            <table className='custom-event-editor' style={{width: '100%'}}>
-                <tbody>
-                    <tr>
-                        <td className='e-textlabel'>Summary</td>
-                        <td><input id='Summary' className='e-field e-input' name='Subject' type='text' style={{width: '100%'}}/></td>
-                    </tr>
-                    <tr>
-                        <td className='e-textlabel'>Status</td>
-                        <td>
-                            <DropDownListComponent id='EventType' className='e-field' dataSource={['New', 'Requested', 'Confirmed']} 
-                            placeholder='Choose status' data-name='EventType' value={props.EventType || null} style={{width: '100%'}}> 
-                            </DropDownListComponent>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='e-textlabel'>From</td>
-                        <td>
-                            <DateTimePickerComponent id='StartTime' className='e-field' data-name='StartTime' value={new Date(props.startTime || props.StartTime)} format='dd/MM/yy hh:mm a'>
-                            </DateTimePickerComponent>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='e-textlabel'>To</td>
-                        <td>
-                            <DateTimePickerComponent id='EndTime' className='e-field' data-name='EndTime' value={new Date(props.endTime || props.EndTime)} format='dd/MM/yy hh:mm a'>
-                            </DateTimePickerComponent>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className='e-textlabel'>Note</td>
-                        <td>
-                            <textarea id='Description' className='e-field e-input' name='Description' rows={3} cols={50} style={{width: '100%', height:'60px', resize:'vertical'}}></textarea>
-                        </td>
-                    </tr>
 
-                </tbody>
-            </table>
-        )
-    }
+    
+    
+    
     return (
         <div className="calendar">
             <div className="doctorInfor" style={{marginTop:50, marginLeft:50}}>
@@ -152,14 +100,66 @@ const Calendar = () => {
                     </Row>
                 </Container>
             </div>
-            <div className="doctorCalendar" style={{marginBottom:'auto', marginLeft:50, marginRight:50, marginTop:100}}>
-                <ScheduleComponent currentView='Week' selectedDate={new Date(2021, 11, 29)}
-                    eventSettings={{dataSource: appointmentData}}
-                    views={['Day', 'Week', 'Month']}
-                    editorTemplate={editorWindowTemplate.bind(this)}
-                >
-                   <Inject services={[Day, Week, Month, Agenda]} />
-                </ScheduleComponent>
+            <div className="doctorCalendar" style={{marginBottom:100, marginLeft:50, marginRight:50, marginTop:100}}>
+                <h1>Doctor Appointment</h1>
+                <table className="appointmentTable">
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>UserID</th>
+                                    <th>Start</th>
+                                    <th>End</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                                {appointmentData.map(
+                                    (appoint)=>{
+                                        return (
+                                            <tr key={appoint._id}>
+                                                <td>{appoint._id}</td>
+                                                <td>{appoint.userId}</td>
+                                                <td>{appoint.start}</td>
+                                                <td>{appoint.end}</td>
+                                                {/* <td>{appoint.status}</td> */}
+                                                {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
+                                                <td>{appoint.userDescription}</td>
+                                            </tr>
+                                        )
+                                    }
+                                )}
+                            </tbody>
+                </table>
+            </div>
+            <div className='requestappointment' style={{marginBottom:100, marginLeft:50, marginRight:50, marginTop:100}}>
+                <h1>Create appointment</h1>
+                <Form className='requestform' onSubmit={create}>
+                    <Form.Group className="mb-3" controlId="formDate">
+                        <Form.Label>Date</Form.Label>
+                        <Form.Control type="date" name="date" required onChange={e => setdate(e.target.value)}/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formTime">
+                        <Row>
+                            <Col>
+                                <Form.Label>Start</Form.Label>
+                                <Form.Control type="time" name="starttime" required onChange={e => setstarttime(e.target.value)}/>
+                            </Col>
+                            <Col>
+                                <Form.Label>End</Form.Label>
+                                <Form.Control type="time" name="endtime" required onChange={e => setendtime(e.target.value)}/>    
+                            </Col>
+                        </Row>
+                        
+                    </Form.Group>
+                    
+                    <Form.Group className="mb-3" controlId="formDescription">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="textarea" name="description" placeholder="Fill your description" required onChange={e=>setdescription(e.target.value)}  />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Create
+                    </Button>
+                </Form>
             </div>
         </div>
       
@@ -168,21 +168,3 @@ const Calendar = () => {
 export default Calendar
 
 
-// const body = {
-//     "id": id
-// }
-// axios.post('/api/doctors/detail', body)
-// .then(function (response) {
-//     setdoctorData(response['data']['data']);
-//     console.log(response['data']['data'])
-//     const img = {
-//         'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
-//         'width': 250,
-//         'height': 250,
-//         'scale': 1,
-//     }
-//     setimageData(img)
-
-// }).catch(function (error) {
-//     console.log(error);
-// });
