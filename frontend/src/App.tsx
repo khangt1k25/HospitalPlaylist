@@ -4,8 +4,6 @@ import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AppRouter from './routes/Route';
-// import AdminRoute from './routes/admin';
-// import Sidebar from './components/Admin/components/sidebar/Sidebar';
 
 function App() {
   return (

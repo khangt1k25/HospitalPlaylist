@@ -29,3 +29,9 @@ export const deleteDoctorById = async (body) => {
     var req = await axios.post('api/doctors/delete', body);
     return req;
 }
+
+export const loginAdmin = async (body) => {
+    return await  axios.post('/api/admin/login', body)
+    .then((response) => response.data)
+    .catch(error => error)
+}

@@ -5,7 +5,7 @@ import { getAppointmentOfUser } from '../services/getAppointment';
 import { getUserInfo } from '../services/patient';
 
 import MyAvatar from './MyAvatar';
-
+import moment from 'moment';
 
 const UserProfile = () => {
     const [data, setdata] = useState(Object)
@@ -109,8 +109,8 @@ const UserProfile = () => {
                                         <tr key={appoint._id}>
                                             <td>{appoint._id}</td>
                                             <td>{appoint.doctorId}</td>
-                                            <td>{appoint.start}</td>
-                                            <td>{appoint.end}</td>
+                                            <td>{moment(appoint.start).format("YYYY/MM/DD kk:mm:ss")}</td>
+                                            <td>{moment(appoint.end).format("YYYY/MM/DD kk:mm:ss")}</td>
                                             {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
                                         </tr>
                                     )
