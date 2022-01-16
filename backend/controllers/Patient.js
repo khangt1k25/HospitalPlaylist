@@ -95,7 +95,7 @@ PatientController.register = async (req, res, next) => {
 // }
 
 PatientController.detail = async (req, res) => {
-  const {userid} = req.body
+  userid = req.body.id
   console.log(userid)
   try{
     let user = await PatientModel.findById(userid)

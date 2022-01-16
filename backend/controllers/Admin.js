@@ -4,6 +4,10 @@ const AppointmentModel = require('../models/Appointments')
 const httpStatus = require('../utils/httpStatus')
 const adminController = {}
 
+// adminController.login = async(req, res, next) => {
+//     const (username, password)
+// }
+
 adminController.getUserList = async(req, res, next) => {
     console.log(req.body)
     try{
