@@ -7,7 +7,7 @@ import WidgetLg from "../../../components/Admin/components/widgetLg/WidgetLg";
 import Sidebar from "../../../components/Admin/components/sidebar/Sidebar";
 import "../../../css/App.css";
 import { useEffect, useState } from "react";
-import { getCountAppointmentByYear, getListUser, getListDoctor } from "../../../services/admin";
+import { getCountAppointmentByYear, getListUser, getListDoctor, getCountAppointmentPending } from "../../../services/admin";
 import { useNavigate } from "react-router-dom";
 
 export default function DashBoard() {
@@ -17,6 +17,8 @@ export default function DashBoard() {
   const [user, setUser] = useState();
   const [doctor, setDoctor] = useState();
   const [userList, setUserList] = useState();
+  const [pendingAppoint, setPendingAppoint] = useState();
+  const [numOfPendingAppoint, setNumOfPendingAppoint] = useState();
 
   useEffect(async()=>{
     // get count appointment by year
@@ -32,7 +34,7 @@ export default function DashBoard() {
     const req1 = await getListUser();
     // console.log(req.patient_Map);
     setUser(Object.keys(req1.patient_Map).length);
-    setUserList(Object.keys(req1.patient_Map));
+    setUserList(Object.values(req1.patient_Map));
     // count number of doctor
     const req2 = await getListDoctor();
     var tmp=0;
@@ -40,6 +42,15 @@ export default function DashBoard() {
         tmp += value.length;
     }
     setDoctor(tmp);
+
+    // Count Pending appointment
+    const req3 = await getCountAppointmentPending({"status":"Pending"});
+    var tmp2 = 0;
+    tmp2 = req3.data.length;
+    setPendingAppoint(req3.data);
+    setNumOfPendingAppoint(tmp2);
+    // setPendingAppoint(req3);
+    // console.log(pendingAppoint);
     },[]);
 
   // function navigateUser() {
@@ -59,6 +70,7 @@ export default function DashBoard() {
           user={user} 
           doctor={doctor}
           navigateUser = {navigate}
+          pending = {numOfPendingAppoint}
         />
         <Chart
           data={data}
@@ -67,8 +79,8 @@ export default function DashBoard() {
           dataKey="Appointments"
         />
         <div className="homeWidgets">
-          <WidgetSm />
-          <WidgetLg />
+          <WidgetSm user={userList}/>
+          <WidgetLg appointment={pendingAppoint}/>
         </div>
       </div>
     </div>

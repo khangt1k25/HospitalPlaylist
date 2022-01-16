@@ -22,8 +22,9 @@ export default function UserList() {
   // }
   // console.log(data_user);
   return (
+    
     <div className='container'>
-      <h1 id='heading1'>USER LIST</h1>
+
       <table  className='customers'>
         <thead>
           <tr>

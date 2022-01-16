@@ -1,5 +1,6 @@
-.container {
+.doctorDiv {
 
+  width: fit-content;
 }
 .productList{
     flex: 4;
@@ -18,7 +19,7 @@
     margin-right: 10px;
   }
 
-.productListEdit{
+.doctorListEdit{
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
@@ -28,9 +29,14 @@
     margin-right: 20px;
 }
 
-.productListDelete{
-    color: red;
-    cursor: pointer;
+.doctorListDelete{
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  background-color: #9c1c1c;
+  color: white;
+  cursor: pointer;
+  margin-right: 20px;
 }
 
 .customers {
@@ -59,4 +65,11 @@
   #heading1 {
     border-width:5px;  
     border-style:ridge;
+    text-align: center;
   }
+
+  #screenFiller {
+    position: absolute;
+    top: 200; right: 100; bottom: 400; left: 10;
+
+}
