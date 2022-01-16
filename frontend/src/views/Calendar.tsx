@@ -168,21 +168,3 @@ const Calendar = () => {
 export default Calendar
 
 
-// const body = {
-//     "id": id
-// }
-// axios.post('/api/doctors/detail', body)
-// .then(function (response) {
-//     setdoctorData(response['data']['data']);
-//     console.log(response['data']['data'])
-//     const img = {
-//         'imageUrl': "https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg",
-//         'width': 250,
-//         'height': 250,
-//         'scale': 1,
-//     }
-//     setimageData(img)
-
-// }).catch(function (error) {
-//     console.log(error);
-// });
