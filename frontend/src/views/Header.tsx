@@ -6,6 +6,8 @@ import { getUserInfo } from '../services/patient'
 import { detailDoctor } from '../services/doctor'
 import { json } from "stream/consumers"
 const Header = () => {
+    const [data, setData] = useState(Object)
+    var userId = localStorage.getItem('id')
     let navigate = useNavigate()
     const handClick = () => {
         console.log("click")
@@ -16,9 +18,8 @@ const Header = () => {
         localStorage.removeItem('accessToken')
         navigate('/signin')
     }
-    const [data, setData] = useState()
-    var userId = localStorage.getItem('id')
-
+    
+    
     const fetchData = async () => {
         const body = {
             "id": userId
@@ -29,24 +30,21 @@ const Header = () => {
         else{
             var response = await getUserInfo(body)
         }
-        setData(response['data']);
+        const tmp = {
+            'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
+            'width': 70,
+            'height': 70,
+            'scale': 1,
+            'userName': response['data']['username'],
+        }
+
+        setData(tmp);
         
     }
     useEffect(  ()  => {
         fetchData()
     }, [])
-    console.log(data)
-    const localData = {
-        'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
-        'width': 70,
-        'height': 70,
-        'scale': 1,
-        'userName': data['username']
-    }
-
-
     
-
     if (localStorage.getItem('accessToken') == 'ok') {
         return (
             <div>
@@ -64,12 +62,12 @@ const Header = () => {
                                     <button style={{padding:0, margin:0, display:'block', border:10}}
                                         onClick={handClick}
                                     >
-                                        <MyAvatar {...localData}/>
+                                        <MyAvatar {...data}/>
                                     </button>
 
                                 </div>
                                 <div style={{float: 'right', marginTop:15, marginRight:5, marginLeft:5}}>
-                                    <h4>{localData.userName}</h4>
+                                    <h4>{data.userName}</h4>
                                     <Button variant="outline-secondary" onClick={signout}>
                                         Sign out
                                     </Button>

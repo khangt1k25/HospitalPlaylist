@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row,Col, Form, Button, Spinner } from 'react-bootstrap';
 import "../css/appointmentTable.css";
+import { getUserInfo } from '../services/patient';
 import MyAvatar from './MyAvatar';
 
+
 const UserProfile = () => {
-    const [email, setEmail] = useState('Khangruni@gmail.com');
-    const [name, setName] = useState('Khang Nguyen Tran');
-    const id = '61d80aed5432026dabbf4e3e'
+
+    const [data, setdata] = useState(Object)
+
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const userId = localStorage.getItem('id')
 
     const localData = {
         'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
@@ -14,6 +19,19 @@ const UserProfile = () => {
         'height': 250,
         'scale': 1,
     }
+    const fetchData = async () => {
+        const body = {
+            "id": userId
+        }
+        var response = await getUserInfo(body)
+        console.log(response['data'])
+        setdata(response['data'])
+        setName(response['data']['username'])
+        setEmail(response['data']['email'])
+    }
+    useEffect(() => {
+        fetchData()  
+    }, [])
     const appointments = [
         {
             "id": 1,
