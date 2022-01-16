@@ -8,8 +8,10 @@ import Sidebar from "../../../components/Admin/components/sidebar/Sidebar";
 import "../../../css/App.css";
 import { useEffect, useState } from "react";
 import { getCountAppointmentByYear, getListUser, getListDoctor } from "../../../services/admin";
+import { useNavigate } from "react-router-dom";
 
 export default function DashBoard() {
+  let navigate = useNavigate();
 
   const [data, setData] = useState();
   const [user, setUser] = useState();
@@ -40,7 +42,13 @@ export default function DashBoard() {
     setDoctor(tmp);
     },[]);
 
+  // function navigateUser() {
+  //   navigate('/user');
+  // }
 
+  // function navigateDoctor() {
+  //   navigate('/doctor');
+  // }
 
   return (
     <div className="container">
@@ -50,6 +58,7 @@ export default function DashBoard() {
         <FeaturedInfo 
           user={user} 
           doctor={doctor}
+          navigateUser = {navigate}
         />
         <Chart
           data={data}

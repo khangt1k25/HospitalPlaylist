@@ -1,13 +1,18 @@
 import Row from './Row';
+import { useEffect, useState } from "react";
+import { getListDoctor } from '../services/admin';
 
-const Craiglist = () => {
+export default function Craiglist() {
     return (
-        <div className='Craiglist'>
-            <Row Speciality='General'/>
-            <Row Speciality='Dentis' />
-            <Row Speciality='Neuron' />
+        <div className='Craiglist' style={{'marginBottom': 100}}>
+            <Row Speciality='Healthcare'/>
+            {/* <Row Speciality='General practitioner' /> */}
+            <Row Speciality='Internist' />
+            <Row Speciality='Surgeon' />
+            <Row Speciality='Neurosurgeon' />
+            <Row Speciality='Dentist' />
+            {/* <Row Speciality='Acupuncture practitioner' /> */}
+            <Row Speciality='Vet' />
         </div>
-
     )
 }
-export default Craiglist;
