@@ -67,7 +67,9 @@ const Calendar = () => {
     }, [])
 
     
-    
+    const deleteRow = () => {
+
+    }
     
     return (
         <div className="calendar">

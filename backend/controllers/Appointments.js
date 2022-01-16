@@ -125,8 +125,10 @@ appointmentsController.countByMonth = async (req, res) => {
 appointmentsController.aprrove = async (req, res) => {
     const update = {status: "Approved"}
     appointmentId = req.body.appointmentId
+    console.log(appointmentId)
     try {
-        appointment = await AppointmentModel.findOneAndUpdate({appointmentId: appointmentId}, update)
+        appointment = await AppointmentModel.findByIdAndUpdate({_id: appointmentId}, update)
+        appointment.status = "Approved"
         if (appointment == null){
             return res.status(httpStatus.NOT_FOUND).json({message: "appointment not found."})
         }

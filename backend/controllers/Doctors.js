@@ -136,6 +136,7 @@ doctorsController.acceptAppointment = async (req, res) => {
 
 doctorsController.deleteDoctor = async (req, res) => {
     const doctorId = req.body.id 
+    console.log(doctorId)
     DoctorModel.findOneAndDelete({_id: doctorId}, function(err){
         if(err){
             console.log("Can't delete")
