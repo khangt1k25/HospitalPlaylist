@@ -11,6 +11,7 @@ import { getAppointmentOfDoctor, createAppointment } from '../services/getAppoin
 const Calendar = () => {
 
     const id = useParams()['id']
+    const user_id = localStorage['id']
     const [doctorData, setdoctorData] = useState(Object)
     const [imageData, setimageData] = useState(Object)
     const [appointmentData, setappointmentData] = useState<any[]>([])
@@ -28,7 +29,7 @@ const Calendar = () => {
         const body = {
             "start": start,
             "end": end,
-            "userId": "61dedeed4541a44d035f36e1",
+            "userId": user_id,
             "doctorId": id,
             "userDescription": description
         }
@@ -107,6 +108,7 @@ const Calendar = () => {
                                     <th>Start</th>
                                     <th>End</th>
                                     <th>Status</th>
+                                    <th>StatusStr</th>
                                     <th>Description</th>
                                 </tr>
                                 {appointmentData.map(
@@ -119,6 +121,7 @@ const Calendar = () => {
                                                 <td>{appoint.end}</td>
                                                 {/* <td>{appoint.status}</td> */}
                                                 {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
+                                                <td>{appoint.status}</td>
                                                 <td>{appoint.userDescription}</td>
                                             </tr>
                                         )
