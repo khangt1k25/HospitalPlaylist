@@ -21,37 +21,64 @@ const Header = () => {
     }
     const signout = () => {
         console.log('signout')
-        localStorage.removeItem('accessToken')
         localStorage.removeItem('is_doctor')
         localStorage.removeItem('id')
+        localStorage.removeItem('is_login')
+        localStorage.removeItem('accessTokenAdmin');
         navigate('/signin')
     }
     const fetchData = async () => {
         const body = {
             "id": userId
         }
-        if(localStorage.getItem('is_doctor') == 'true'){
-            var response = await detailDoctor(body)
+        console.log(localStorage.getItem('accessTokenAdmin'))
+        if (localStorage.getItem('accessTokenAdmin')=='ok'){
+            const tmp = {
+                'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
+                'width': 70,
+                'height': 70,
+                'scale': 1,
+                'userName': "Admin"
+            }
+            setData(tmp);
+        } else{
+            if(localStorage.getItem('is_login') == 'ok'){
+                if(localStorage.getItem('is_doctor') == 'true'){
+                    var response = await detailDoctor(body)
+                }
+                else{
+                    var response = await getUserInfo(body)
+                }
+                const tmp = {
+                    'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
+                    'width': 70,
+                    'height': 70,
+                    'scale': 1,
+                    'userName': response['data']['username'] || 'NoBody',
+                }
+                setData(tmp);
+            }
+            else{
+                const tmp = {
+                    'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
+                    'width': 70,
+                    'height': 70,
+                    'scale': 1,
+                    'userName':  'NoBody',
+                }
+                setData(tmp);
+            }
         }
-        else{
-            var response = await getUserInfo(body)
-        }
-        const tmp = {
-            'imageUrl':'https://cdn1.tuoitre.vn/zoom/600_315/2019/5/8/avatar-publicitystill-h2019-1557284559744252594756-crop-15572850428231644565436.jpg',
-            'width': 70,
-            'height': 70,
-            'scale': 1,
-            'userName': response['data']['username'],
-        }
+        
 
-        setData(tmp);
+        
         
     }
     useEffect(  ()  => {
         fetchData()
     }, [])
     
-    if (localStorage.getItem('accessToken') == 'ok') {
+    if (localStorage.getItem('is_login') == 'ok') {
         return (
             <div>
                 <Navbar bg="light" expand="lg">
@@ -87,7 +114,7 @@ const Header = () => {
             </div>
         )
     } else {
-        localStorage.removeItem('accessToken')
+        // localStorage.removeItem('accessToken')
         return (
             <div>
                 <Navbar bg="light" expand="lg">

@@ -41,7 +41,7 @@ const SignUp = () => {
                 "department": speciality,
                 "description": description,
             } 
-            var data = await registerPatient(body)
+            var data = await registerDoctor(body)
             // need handle error
             console.log(data)
         }
