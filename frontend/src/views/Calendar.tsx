@@ -22,9 +22,6 @@ const Calendar = () => {
     
     const create = async (e: SyntheticEvent) => {
         e.preventDefault(); 
-        // console.log(date)    
-        // console.log(starttime)
-        // console.log(endtime)
         var start = new Date(date + ' ' + starttime);
         var end = new Date(date + ' ' + endtime);
 
@@ -37,7 +34,7 @@ const Calendar = () => {
         }
         var response = await createAppointment(body)
         console.log(response)
-
+        
     }
     
     
