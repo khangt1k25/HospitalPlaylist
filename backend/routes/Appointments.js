@@ -50,4 +50,9 @@ appointmentRoute.post(
     '/getAppointmentOfUserNow',
     asyncWrapper(appointmentController.getAppointmentOfUserNow)
 )
+
+appointmentRoute.post(
+    '/getAppointmentOfDoctorNow',
+    asyncWrapper(appointmentsController.getAppointmentOfDoctorNow)
+)
 module.exports = appointmentRoute

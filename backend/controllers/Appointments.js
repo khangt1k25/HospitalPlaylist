@@ -186,18 +186,43 @@ appointmentsController.getAppointmentOfUserNow = async (req, res, next) => {
             start: {
                 $gte: start,
                 $lt: end
-            }
+            },
+            userId: userId
         })
-        res.status(httpStatus.OK).json({
+        return res.status(httpStatus.OK).json({
             data: appointments
         })
     }
     catch(e){
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
             message: e.message
         })
     }
-    return res.status(httpStatus.OK).json({message: "OK"})
+}
+
+appointmentsController.getAppointmentOfDoctorNow = async (req, res, next) => {
+    const doctorId = req.body.doctorId
+    var start = new Date()
+    start.setUTCHours(0,0,0,0)
+    var end = new Date()
+    end.setUTCHours(23, 59, 59, 0)
+    try{
+        appointments = await AppointmentModel.find({
+            start: {
+                $gte: start,
+                $lt: end
+            },
+            doctorId: doctorId
+        })
+        return res.status(httpStatus.OK).json({
+            data: appointments
+        })
+    }
+    catch(e){
+        return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+            message: e.message
+        })
+    }
 }
 
 module.exports = appointmentsController
