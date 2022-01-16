@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Spinner, Button, Form} from 'react-bootstrap
 import MyAvatar from './MyAvatar';
 import axios from "axios";
 import { detailDoctor } from '../services/doctor';
-import { getAppointmentOfDoctor, createAppointment } from '../services/getAppointment';
+import { getAppointmentOfDoctor, createAppointment, approveAppointment } from '../services/getAppointment';
 
 
 
@@ -37,7 +37,15 @@ const Calendar = () => {
         console.log(response)
         
     }
-    
+    const approve = async (e: SyntheticEvent) => {
+        e.preventDefault(); 
+        const body = {
+            "appointmentId": "61e1a591a1a4debf23638f36" //test this: wrong appointment
+        }
+        var response = await approveAppointment(body)
+        console.log(response)
+        
+    }
     
     useEffect(  ()  => {
         const fetchData = async () => {
@@ -66,11 +74,9 @@ const Calendar = () => {
         fetchData()
     }, [])
 
-    
-    
-    
     return (
         <div className="calendar">
+            <Button onClick={approve}>Test approve for i want this</Button>
             <div className="doctorInfor" style={{marginTop:50, marginLeft:50}}>
                 <Container>
                     <Row style={{width:'100%'}}>
@@ -119,7 +125,6 @@ const Calendar = () => {
                                                 <td>{appoint.userId}</td>
                                                 <td>{appoint.start}</td>
                                                 <td>{appoint.end}</td>
-                                                {/* <td>{appoint.status}</td> */}
                                                 {appoint.status=='Approved'?<td><Spinner animation="grow" variant="success"/></td>:<td><Spinner animation="grow" variant="warning" /></td>}
                                                 <td>{appoint.status}</td>
                                                 <td>{appoint.userDescription}</td>

@@ -26,7 +26,7 @@ const UserProfile = () => {
         }
         var response = await getUserInfo(body)
         console.log(response['data'])
-        setdata(response['data']) //  not used currently
+        setdata(response['data'])
         setName(response['data']['username'])
         setEmail(response['data']['email'])
 
