@@ -31,8 +31,8 @@ const UserProfile = () => {
         setEmail(response['data']['email'])
 
         const abody = {
-            "userId": "61dedeed4541a44d035f36e1",
-            "status": "Pending"
+            "userId": userId,
+            "status": "all"
         }
         var aresponse = await getAppointmentOfUser(abody)
         console.log(aresponse['data'])
