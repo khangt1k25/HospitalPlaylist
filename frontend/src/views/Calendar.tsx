@@ -74,10 +74,9 @@ const Calendar = () => {
             if(currentid == id){
                 setowner(true)
             }
-
         }
         fetchData()
-    }, [])
+    }, [id])
 
 
     return (

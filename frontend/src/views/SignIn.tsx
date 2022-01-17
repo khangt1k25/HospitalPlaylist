@@ -14,7 +14,7 @@ const SignIn = () => {
 
     const login = async (e: SyntheticEvent) => {
         e.preventDefault();        
-        localStorage.setItem('accessToken', 'ok');
+        // localStorage.setItem('accessToken', 'ok');
         let body = {
             "username": username,
             "password": password,
@@ -27,8 +27,11 @@ const SignIn = () => {
                 console.log(data)
                 localStorage.setItem('id', data.user._id)
                 localStorage.setItem('is_doctor', 'false')
+                localStorage.setItem('accessTokenAdmin', 'ko');
+                localStorage.setItem('is_login', 'ok')
                 navigate('/userprofile')
             }else{
+                localStorage.setItem('is_login', 'ko')
                 alert("Login patient Fail")
                 window.location.reload()
             }
@@ -40,15 +43,20 @@ const SignIn = () => {
             if (data.status=='ok'){   
                 console.log(data)
                 localStorage.setItem('id', data.user._id)
+                localStorage.setItem('is_login', 'ok')
                 localStorage.setItem('is_doctor', 'true')
+                localStorage.setItem('accessTokenAdmin', 'ko');
                 navigate('/calendar/'+ data.user._id)
             }else{
+                localStorage.setItem('is_login', 'ko')
                 alert("Login doctor Fail")
                 window.location.reload()
             }
         }else{
+
             var data = await loginAdmin(body)
             console.log("Admin here");
+            localStorage.setItem('is_login', 'ok')
             localStorage.setItem('accessTokenAdmin', 'ok');
             navigate('/admin')
     
