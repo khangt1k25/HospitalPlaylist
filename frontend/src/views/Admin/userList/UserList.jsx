@@ -15,19 +15,14 @@ export default function UserList() {
     //setData(req);
     },[]);
   console.log(data);
-  // process data
-  // const id_user = [];
-  // for (var i = 0; i < data.length; i++) {
-  //   id_user.push(i);
-  // }
-  // console.log(data_user);
+
   return (
     
     <div className='container'>
 
       <table  className='customers'>
         <thead>
-          <tr>
+          <tr key="header">
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
