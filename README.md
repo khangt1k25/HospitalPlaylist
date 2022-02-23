@@ -15,11 +15,11 @@ npm start
 
 ### Fontend
 <pre>
-cd fontend
+cd frontend
 yarn
 </pre>
 
-## Start fontend
+## Start frontend
 <pre>
 yarn start
 </pre>
