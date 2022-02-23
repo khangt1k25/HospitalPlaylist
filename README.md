@@ -12,3 +12,14 @@ npm install
 <pre>
 npm start
 </pre>
+
+### Fontend
+<pre>
+cd fontend
+yarn
+</pre>
+
+## Start fontend
+<pre>
+yarn start
+</pre>
